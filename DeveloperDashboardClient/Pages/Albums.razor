@@ -1,0 +1,30 @@
+﻿@page "/albums"
+@namespace DeveloperDashboard.Pages
+<h1>Albums</h1>
+
+@if (albums == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>User Id</th>
+                <th>Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var album in albums)
+            {
+                <tr>
+                    <td>@album.Id</td>
+                    <td>@album.UserId</td>
+                    <td>@album.Title</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
