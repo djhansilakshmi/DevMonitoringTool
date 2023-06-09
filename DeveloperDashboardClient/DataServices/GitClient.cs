@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace DeveloperDashboardClient.DataServices
 {
-    public class GitClient:IGitClient
+    public class GitClient : IGitClient
     {
         private static string GitHubIdentity = Assembly
             .GetEntryAssembly()

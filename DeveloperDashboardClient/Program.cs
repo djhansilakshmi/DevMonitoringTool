@@ -24,9 +24,9 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddSingleton<IGitClient, GitClient>(service => { return new GitClient(token); });
 
-builder.Services.AddSingleton<IDashboardService,DashboardService>(service =>
-                            new DashboardService(owner, 
-                                    service.GetRequiredService<IGitClient>().GetGithubClient()));
+builder.Services.AddSingleton<IDashboardService, DashboardService>(service =>
+                             new DashboardService(owner,
+                                     service.GetRequiredService<IGitClient>().GetGithubClient()));
 
 
 builder.Services.AddHttpClient<IAlbumDataService, AlbumDataService>
