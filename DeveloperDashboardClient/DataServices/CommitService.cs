@@ -24,13 +24,13 @@ namespace DeveloperDashboardClient.DataServices
 
                 // Console.WriteLine($"Repository.Branch.Get: Name={branch.Name}");
 
-                staleBranches(branches, client);
+                StaleBranches(branches, client);
 
                 return commits;
 
             }
 
-            private void staleBranches(IReadOnlyList<Branch> branches, GitHubClient client)
+            private void StaleBranches(IReadOnlyList<Branch> branches, GitHubClient client)
             {
 
                 var staleBranches = new List<Branch>();

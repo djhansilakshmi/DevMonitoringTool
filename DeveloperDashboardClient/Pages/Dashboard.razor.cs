@@ -17,7 +17,7 @@ namespace DeveloperDashboardClient.Pages
 
             try
             {
-                var dash = await _dashboardService.GetAllProjectsFromAllTeams();
+                var dash = await _dashboardService.GetAllProjectsFromAllTeams().ConfigureAwait(false);
 
                 dashboardVMs = dash.ToList();
 

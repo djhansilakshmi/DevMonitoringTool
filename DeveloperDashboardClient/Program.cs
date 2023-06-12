@@ -1,5 +1,6 @@
 using DeveloperDashboard.DataServices;
 using DeveloperDashboardClient;
+using DeveloperDashboardClient.Client;
 using DeveloperDashboardClient.DataServices;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -10,9 +11,12 @@ using Octokit;
 //var owner = "djhansilakshmi";
 //var token = "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";
 
+//var token = "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";
 
 var owner = "rganesanAltimetrik";
-var token = "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";
+var token = "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";
+
+
 
 
 

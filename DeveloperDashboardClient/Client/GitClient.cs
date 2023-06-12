@@ -1,9 +1,9 @@
 ﻿using Octokit;
 using System.Reflection;
 
-namespace DeveloperDashboardClient.DataServices
+namespace DeveloperDashboardClient.Client
 {
-    public class GitClient:IGitClient
+    public class GitClient : IGitClient
     {
         private static string GitHubIdentity = Assembly
             .GetEntryAssembly()

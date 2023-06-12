@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-namespace DeveloperDashboardClient.DataServices
+namespace DeveloperDashboardClient.Client
 {
     public interface IGitClient
     {
