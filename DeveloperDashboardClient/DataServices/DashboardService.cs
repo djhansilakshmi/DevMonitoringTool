@@ -10,7 +10,7 @@ namespace DeveloperDashboardClient.DataServices
         private readonly string _owner;
         private readonly IGitHubClient _githubClient;
 
-        public DashboardService(string owner,IGitHubClient githubClient)
+        public DashboardService(string owner, IGitHubClient githubClient)
         {
             this._owner = owner;
             this._githubClient = githubClient;
@@ -32,9 +32,9 @@ namespace DeveloperDashboardClient.DataServices
 
         public async Task<List<DashboardVM>> GetAllProjectsFromAllTeams()
         {
-            var resp= await _githubClient.Repository.GetAllForUser(this._owner);
+            var resp = await _githubClient.Repository.GetAllForUser(this._owner);
 
-            var result=resp.ToList();
+            var result = resp.ToList();
 
             List<DashboardVM> dashboardVMs = new();
 
@@ -54,7 +54,7 @@ namespace DeveloperDashboardClient.DataServices
 
                 var parameters = new Dictionary<string, string>();
 
-               //var workflows = await _githubClient.Connection.Get<List<Workflow>>(new Uri(apiUrl, UriKind.Relative), parameters);
+                //var workflows = await _githubClient.Connection.Get<List<Workflow>>(new Uri(apiUrl, UriKind.Relative), parameters);
 
 
 
@@ -70,7 +70,7 @@ namespace DeveloperDashboardClient.DataServices
                 //var workflows = JsonSerializer.Deserialize<List<Workflow>>(response.HttpResponse.Body.ToString());
 
 
-               // var runs = await _githubClient.Actions.Workflows.Get(_owner, repo.Name, workflows[0].Id);
+                // var runs = await _githubClient.Actions.Workflows.Get(_owner, repo.Name, workflows[0].Id);
 
 
 
