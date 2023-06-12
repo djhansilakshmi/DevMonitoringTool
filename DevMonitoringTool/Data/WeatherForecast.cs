@@ -10,6 +10,6 @@ namespace DevMonitoringTool.Data
 
         public string? Summary { get; set; }
 
-        public string ? copySummary { get; set; }
+        public string? copySummary { get; set; }
     }
 }
