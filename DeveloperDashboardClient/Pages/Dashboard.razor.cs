@@ -10,7 +10,7 @@ namespace DeveloperDashboardClient.Pages
         [Inject]
         public IDashboardService _dashboardService { get; set; }
 
-        List<DashboardVM> dashboardVMs { get; set; }
+        List<Repositories> dashboardVMs { get; set; }
 
         public async Task GetAllData()
         {
@@ -18,7 +18,6 @@ namespace DeveloperDashboardClient.Pages
             try
             {
                 var dash = await _dashboardService.GetAllProjectsFromAllTeams().ConfigureAwait(false);
-
                 dashboardVMs = dash.ToList();
 
             }
@@ -27,11 +26,6 @@ namespace DeveloperDashboardClient.Pages
 
                 Console.WriteLine(ex.Message);
             }
-        }
-
-        protected override async Task OnInitializedAsync()
-        {
-
         }
 
     }

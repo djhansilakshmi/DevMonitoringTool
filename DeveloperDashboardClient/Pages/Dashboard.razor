@@ -15,7 +15,7 @@
             <th>Code Coverage #</th>
             <th>Last Deployed #</th>
             <th>Build Status#</th>
-           
+
         </tr>
     </thead>
     <tbody>
@@ -23,15 +23,18 @@
         {
             @foreach (var dashboard in dashboardVMs)
             {
-                <tr>
-                    <td>@dashboard.Project</td>
-                    <td>@dashboard.BranchName</td>
-                    <td>@dashboard.TotalPR</td>
-                    <td>"Sample 85%"</td>
-                    <td>@DateTime.Now.ToShortTimeString()</td>
-                    <td>"Sample Success"</td>
+                @foreach (var branch in @dashboard.Branches)
+                {
+                    <tr>
+                        <td>@dashboard.Name</td>
+                        <td>@branch.Name</td>
+                        <td>@branch.PullRequests?.Count</td>
+                        <td>sample 8.5</td>
+                        <td>@branch.Deployments?[0]?.DeployedDate</td>
+                        <td>Success</td>
 
-                </tr>
+                    </tr>
+                }
             }
 
         }
@@ -41,7 +44,7 @@
 
 @code {
 
-   
-    
+
+
 
 }

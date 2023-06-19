@@ -1,9 +1,7 @@
-﻿using Octokit;
-
-namespace DeveloperDashboardClient.Client
+﻿namespace DeveloperDashboardClient.Client
 {
     public interface IGitClient
     {
-        GitHubClient GetGithubClient();
+        Task<string> SendAsync(string url);
     }
 }
