@@ -62,7 +62,7 @@ var owner = "rganesanAltimetrik";
 //            {
 //                List<PullRequest> pullRequests = new List<PullRequest>();
 //                pullRequests.AddRange((pullDetails.Where(y => y.head.BranchName.Equals(branchDetails[i].Name)).ToList()));
-               
+
 //                branchDetails[i].PullRequests = pullRequests;
 //            }
 

@@ -25,7 +25,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 //builder.Services.AddSingleton<IGitClient, GitClient>(service => { return new GitClient(token); });
 
 
-builder.Services.AddTransient<IGitClient,GitClient>(service=>new GitClient(rameshToken));
+builder.Services.AddTransient<IGitClient, GitClient>(service => new GitClient(rameshToken));
 
 builder.Services.AddTransient<IBranchService, BranchService>();
 builder.Services.AddTransient<IBuildService, BuildService>();
