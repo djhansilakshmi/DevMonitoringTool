@@ -61,11 +61,15 @@ namespace DeveloperDashboardClient.DataServices
                 var branchDetails = await GetBranchDetails(repoName);
                 var branches = new List<Branch>();
 
+                var pullDetails = await GetPullRequest(repoName);
+                var buildDetails = await GetBuilds(repoName);
+                var deploymentDetails = await GetDeployment(repoName);
+
+
                 if (branchDetails is not null)
                 {
                     for (int i = 0; i < branchDetails.Count; i++)
                     {
-                        var pullDetails = await GetPullRequest(repoName);
                         if (pullDetails is not null && pullDetails.Count > 0)
                         {
                             List<PullRequest> pullRequests = new List<PullRequest>();
@@ -74,7 +78,6 @@ namespace DeveloperDashboardClient.DataServices
                             branchDetails[i].PullRequests = pullRequests;
                         }
 
-                        var buildDetails = await GetBuilds(repoName);
                         if (buildDetails is not null && buildDetails.ActionWorkflowRuns.Count > 0)
                         {
 
@@ -85,7 +88,6 @@ namespace DeveloperDashboardClient.DataServices
 
                         }
 
-                        var deploymentDetails = await GetDeployment(repoName);
                         if (deploymentDetails is not null && deploymentDetails.Count > 0)
                         {
                             List<Deployment> deployments = new List<Deployment>();
