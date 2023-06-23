@@ -2,6 +2,7 @@
 using DeveloperDashboardClient.Dtos;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Runtime.Caching;
 using System.Text.Json;
 
 namespace DeveloperDashboardClient.DataServices
@@ -61,13 +62,12 @@ namespace DeveloperDashboardClient.DataServices
                 var branchDetails = await GetBranchDetails(repoName);
                 var branches = new List<Branch>();
 
-                var pullDetails = await GetPullRequest(repoName);
-                var buildDetails = await GetBuilds(repoName);
-                var deploymentDetails = await GetDeployment(repoName);
-
-
                 if (branchDetails is not null)
                 {
+                    var pullDetails = await GetPullRequest(repoName);
+                    var buildDetails = await GetBuilds(repoName);
+                    var deploymentDetails = await GetDeployment(repoName);
+
                     for (int i = 0; i < branchDetails.Count; i++)
                     {
                         if (pullDetails is not null && pullDetails.Count > 0)
@@ -78,7 +78,7 @@ namespace DeveloperDashboardClient.DataServices
                             branchDetails[i].PullRequests = pullRequests;
                         }
 
-                        if (buildDetails is not null && buildDetails.ActionWorkflowRuns.Count > 0)
+                        if (buildDetails.ActionWorkflowRuns.Count > 0)
                         {
 
                             Actions actions = new Actions { ActionWorkflowRuns = new List<ActionWorkflowRun>() };
@@ -88,7 +88,7 @@ namespace DeveloperDashboardClient.DataServices
 
                         }
 
-                        if (deploymentDetails is not null && deploymentDetails.Count > 0)
+                        if (deploymentDetails.Count > 0)
                         {
                             List<Deployment> deployments = new List<Deployment>();
                             deployments.AddRange(deploymentDetails.Where(y => y.BranchName.Equals(branchDetails[i].Name)).ToList());
@@ -108,8 +108,6 @@ namespace DeveloperDashboardClient.DataServices
             }
 
             return repos;
-
-
 
         }
 
@@ -138,4 +136,6 @@ namespace DeveloperDashboardClient.DataServices
         }
 
     }
+
+
 }

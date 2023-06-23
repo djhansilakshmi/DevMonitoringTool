@@ -10,6 +10,8 @@ namespace DeveloperDashboardClient.Pages
         [Inject]
         public IDashboardService _dashboardService { get; set; }
 
+
+
         List<Repositories> dashboardVMs { get; set; }
 
         public async Task GetAllData()
@@ -17,8 +19,15 @@ namespace DeveloperDashboardClient.Pages
 
             try
             {
-                var dash = await _dashboardService.GetAllProjectsFromAllTeams().ConfigureAwait(false);
-                dashboardVMs = dash.ToList();
+
+                var gitResponse =await CacheServices.GetCachedResponse<List<Repositories>>("GitResponse", async () =>
+                {
+                    return await _dashboardService.GetAllProjectsFromAllTeams().ConfigureAwait(false);
+                });
+
+
+                //var dash = await _dashboardService.GetAllProjectsFromAllTeams().ConfigureAwait(false);
+                dashboardVMs = gitResponse.ToList();
 
             }
             catch (Exception ex)
