@@ -20,10 +20,10 @@ namespace DeveloperDashboardClient.Pages
             try
             {
 
-                var gitResponse =await CacheServices.GetCachedResponse<List<Repositories>>("GitResponse", async () =>
-                {
-                    return await _dashboardService.GetAllProjectsFromAllTeams().ConfigureAwait(false);
-                });
+                var gitResponse = await CacheServices.GetCachedResponse<List<Repositories>>("GitResponse", async () =>
+                 {
+                     return await _dashboardService.GetAllProjectsFromAllTeams().ConfigureAwait(false);
+                 });
 
 
                 //var dash = await _dashboardService.GetAllProjectsFromAllTeams().ConfigureAwait(false);
