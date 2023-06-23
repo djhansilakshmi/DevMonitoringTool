@@ -1,5 +1,6 @@
 using DeveloperDashboard.DataServices;
 using DeveloperDashboardClient;
+using DeveloperDashboardClient.Data;
 using DeveloperDashboardClient.Client;
 using DeveloperDashboardClient.DataServices;
 using DeveloperDashboardClient.DataServices.GitServices;
@@ -21,11 +22,12 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped<WeatherForecastService>();
 
 //builder.Services.AddSingleton<IGitClient, GitClient>(service => { return new GitClient(token); });
 
 
-builder.Services.AddTransient<IGitClient,GitClient>(service=>new GitClient(rameshToken));
+builder.Services.AddTransient<IGitClient, GitClient>(service => new GitClient(rameshToken));
 
 builder.Services.AddTransient<IBranchService, BranchService>();
 builder.Services.AddTransient<IBuildService, BuildService>();

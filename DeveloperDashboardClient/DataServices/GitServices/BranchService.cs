@@ -16,8 +16,8 @@ namespace DeveloperDashboardClient.DataServices.GitServices
         public async Task<List<Branch>> GetAll(string owner, string repo)
         {
             var responseContent = string.Empty;
-                string url = $"repos/{owner}/{repo}/branches";
-            responseContent =await _gitClientCalls.SendAsync(url).ConfigureAwait(false);
+            string url = $"repos/{owner}/{repo}/branches";
+            responseContent = await _gitClientCalls.SendAsync(url).ConfigureAwait(false);
 
             var branches = JsonConvert.DeserializeObject<List<Branch>>(responseContent);
 
