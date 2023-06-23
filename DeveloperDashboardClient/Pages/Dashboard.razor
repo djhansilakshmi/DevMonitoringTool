@@ -1,0 +1,47 @@
+﻿@page "/dashboard"
+@using DeveloperDashboardClient.DataServices;
+
+
+<h3>Dashboard</h3>
+
+<button type="button" @onclick=GetAllData>Get Data</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Project #</th>
+            <th>Branch #</th>
+            <th>PR #</th>
+            <th>Code Coverage #</th>
+            <th>Last Deployed #</th>
+            <th>Build Status#</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @if (dashboardVMs is not null)
+        {
+            @foreach (var dashboard in dashboardVMs)
+            {
+                <tr>
+                    <td>@dashboard.Project</td>
+                    <td>@dashboard.BranchName</td>
+                    <td>@dashboard.TotalPR</td>
+                    <td>"Sample 85%"</td>
+                    <td>@DateTime.Now.ToShortTimeString()</td>
+                    <td>"Sample Success"</td>
+
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+
+@code {
+
+   
+    
+
+}
