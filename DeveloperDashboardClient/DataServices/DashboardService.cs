@@ -1,6 +1,8 @@
-﻿using DeveloperDashboardClient.Dtos;
-using Octokit;
+﻿using DeveloperDashboardClient.DataServices.GitServices;
+using DeveloperDashboardClient.Dtos;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Runtime.Caching;
 using System.Text.Json;
 
 namespace DeveloperDashboardClient.DataServices
@@ -8,12 +10,31 @@ namespace DeveloperDashboardClient.DataServices
     public class DashboardService : IDashboardService
     {
         private readonly string _owner;
-        private readonly IGitHubClient _githubClient;
+        private readonly IBranchService _branchService;
+        private readonly IBuildService _buildService;
+        private readonly ICommitService _ccmmitService;
+        private readonly IDeploymentService _deploymentService;
+        private readonly ICommitService _commitService;
+        private readonly IPullService _pullService;
+        private readonly IRepoService _repoService;
 
-        public DashboardService(string owner, IGitHubClient githubClient)
+
+        public DashboardService(string owner,
+                                IBranchService branchService,
+                                IBuildService buildService,
+                                ICommitService CcmmitService,
+                                IDeploymentService deploymentService,
+                                ICommitService commitService,
+                                IPullService pullService,
+                                IRepoService repoService)
         {
             this._owner = owner;
-            this._githubClient = githubClient;
+            this._branchService = branchService;
+            this._buildService = buildService;
+            this._deploymentService = deploymentService;
+            this._commitService = commitService;
+            this._pullService = pullService;
+            this._repoService = repoService;
         }
         public List<DashboardVM> FilterByProjects(string Project)
         {
@@ -30,60 +51,91 @@ namespace DeveloperDashboardClient.DataServices
             throw new NotImplementedException();
         }
 
-        public async Task<List<DashboardVM>> GetAllProjectsFromAllTeams()
+        public async Task<List<Repositories>> GetAllProjectsFromAllTeams()
         {
-            var resp = await _githubClient.Repository.GetAllForUser(this._owner);
 
-            var result = resp.ToList();
+            var repos = await _repoService.GetAll();
 
-            List<DashboardVM> dashboardVMs = new();
-
-            foreach (var repo in result)
+            for (int r = 0; r < repos.Count; r++)
             {
-                DashboardVM dashboardVM = new DashboardVM();
+                var repoName = repos[r].Name;
+                var branchDetails = await GetBranchDetails(repoName);
+                var branches = new List<Branch>();
 
-                var pullRequests = await _githubClient.PullRequest.GetAllForRepository(_owner, repo.Name);
-                var pullRequestCount = pullRequests.Count;
+                if (branchDetails is not null)
+                {
+                    var pullDetails = await GetPullRequest(repoName);
+                    var buildDetails = await GetBuilds(repoName);
+                    var deploymentDetails = await GetDeployment(repoName);
+
+                    for (int i = 0; i < branchDetails.Count; i++)
+                    {
+                        if (pullDetails is not null && pullDetails.Count > 0)
+                        {
+                            List<PullRequest> pullRequests = new List<PullRequest>();
+                            pullRequests.AddRange((pullDetails.Where(y => y.head.BranchName.Equals(branchDetails[i].Name)).ToList()));
+
+                            branchDetails[i].PullRequests = pullRequests;
+                        }
+
+                        if (buildDetails.ActionWorkflowRuns.Count > 0)
+                        {
+
+                            Actions actions = new Actions { ActionWorkflowRuns = new List<ActionWorkflowRun>() };
+                            actions.ActionWorkflowRuns.AddRange(buildDetails.ActionWorkflowRuns.Where(y => y.BranchName.Equals(branchDetails[i].Name)));
+
+                            branchDetails[i].Actions = actions;
+
+                        }
+
+                        if (deploymentDetails.Count > 0)
+                        {
+                            List<Deployment> deployments = new List<Deployment>();
+                            deployments.AddRange(deploymentDetails.Where(y => y.BranchName.Equals(branchDetails[i].Name)).ToList());
+
+                            branchDetails[i].Deployments = deployments;
+
+                        }
+                    }
+                }
 
 
-                var deployments = await _githubClient.Repository.Deployment.GetAll(_owner, repo.Name);
-                var lastDeployment = deployments.OrderByDescending(d => d.CreatedAt).FirstOrDefault();
+                if (branchDetails is not null)
+                    branches.AddRange(branchDetails);
 
+                repos[r] = new Repositories() { Branches = branches, Name = repoName };
 
-                var apiUrl = $"repos/{_owner}/{repo.Name}/actions/workflows";
-
-                var parameters = new Dictionary<string, string>();
-
-                //var workflows = await _githubClient.Connection.Get<List<Workflow>>(new Uri(apiUrl, UriKind.Relative), parameters);
-
-
-
-
-                //foreach (Workflow workflow in workflows)
-                //{
-                //    long workflowId = workflow.Id;
-                //    // Do something with the workflowId
-                //    Console.WriteLine(workflowId);
-                //}
-
-
-                //var workflows = JsonSerializer.Deserialize<List<Workflow>>(response.HttpResponse.Body.ToString());
-
-
-                // var runs = await _githubClient.Actions.Workflows.Get(_owner, repo.Name, workflows[0].Id);
-
-
-
-
-                dashboardVM.Project = repo.Name;
-                dashboardVM.BranchName = repo.DefaultBranch;
-                dashboardVM.TotalPR = pullRequestCount;
-
-                dashboardVMs.Add(dashboardVM);
             }
 
-            return dashboardVMs;
+            return repos;
 
         }
+
+        async Task<List<Branch>> GetBranchDetails(string repository)
+        {
+            return await _branchService.GetAll(_owner, repository).ConfigureAwait(false);
+
+        }
+
+        async Task<List<PullRequest>> GetPullRequest(string repository)
+        {
+
+            return await _pullService.Get(_owner, repository).ConfigureAwait(false);
+
+        }
+
+        async Task<Actions> GetBuilds(string repository)
+        {
+            return await _buildService.Get(_owner, repository).ConfigureAwait(false);
+
+        }
+
+        async Task<List<Deployment>> GetDeployment(string repository)
+        {
+            return await _deploymentService.Get(_owner, repository);
+        }
+
     }
+
+
 }
