@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 
 var owner = "rganesanAltimetrik";
-var rameshToken = "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";
+var rameshToken = "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";
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
