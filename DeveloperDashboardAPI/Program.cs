@@ -42,7 +42,7 @@ builder.Services.AddSingleton<IDashboardService, DashboardService>(service =>
                              new DashboardService(owner,
                                 service.GetRequiredService<IBranchService>(),
                                 service.GetRequiredService<IBuildService>(),
-                               //service.GetRequiredService<ICommitService>(),
+                                //service.GetRequiredService<ICommitService>(),
                                 service.GetRequiredService<IDeploymentService>(),
                                 service.GetRequiredService<ICommitService>(),
                                 service.GetRequiredService<IPullService>(),

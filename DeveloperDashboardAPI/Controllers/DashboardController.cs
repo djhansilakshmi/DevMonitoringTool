@@ -9,7 +9,7 @@ namespace DeveloperDashboardAPI.Controllers
     public class DashboardController : ControllerBase
     {
         private readonly ILogger<DashboardController> _logger;
-        private readonly IDashboardService _dashboardService; 
+        private readonly IDashboardService _dashboardService;
 
         public DashboardController(IDashboardService dashboardService, ILogger<DashboardController> logger)
         {
@@ -31,7 +31,7 @@ namespace DeveloperDashboardAPI.Controllers
                     return NotFound();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
                 throw;
