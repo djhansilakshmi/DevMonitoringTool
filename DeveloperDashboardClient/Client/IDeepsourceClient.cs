@@ -2,6 +2,6 @@
 {
     public interface IDeepsourceClient
     {
-        Task<string> SendAsync(string url, string data);
+        Task<HttpResponseMessage> SendAsync(string data);
     }
 }

@@ -102,12 +102,14 @@ namespace DeveloperDashboardClient.DataServices
 
                         }
 
-                        if (String.IsNullOrEmpty(linecoverage.ToString()))
+                        if (!String.IsNullOrEmpty(linecoverage.ToString()))
                         {
                             CodeCoverage codeCoverage = new CodeCoverage();
+                            //codeCoverage.data.repository.metrics[0].items[0].values.edges[0].node.value.Equals(linecoverage.data.repository.metrics[0].items[0].values.edges[0].node.value);
                             //codeCoverage.(deploymentDetails.Where(y => y.BranchName.Equals(branchDetails[i].Name)).ToList());
+                            //double lncoverage = branchDetails[i].CodeCoverage.data.repository.metrics[0].items[0].values.edges[0].node.value;
+                            branchDetails[i].CodeCoverage = linecoverage;
 
-                            branchDetails[i].CodeCoverage.LineCoverage = linecoverage.ToString();
 
                         }
                     }

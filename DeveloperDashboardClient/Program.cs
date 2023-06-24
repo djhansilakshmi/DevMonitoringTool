@@ -6,29 +6,30 @@ using DeveloperDashboardClient.DataServices;
 using DeveloperDashboardClient.DataServices.GitServices;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using DeveloperDashboardClient.DataServices.DeepSourceServices;
+using DeveloperDashboardClient.Dtos;
 
-
+// Jhansi Git and Deepsource Details 
 //var owner = "djhansilakshmi";
-//var token = "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";
-
-//var jhsniToken = "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";
-
-
-var owner = "rganesanAltimetrik";
-var rameshToken = "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";
+//var rameshToken = "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";
+//var DeepSourceToken = "dsp_2c11633e3254558e5d43384580274d9d80f7";
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+// Ramesh Git and Deepsource Details 
+var owner = builder.Configuration["owner"];// "rganesanAltimetrik";
+var rameshToken = builder.Configuration["git_Token"]; //"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";
+var DeepSourceToken = builder.Configuration["deepsource_token"]; //"dsp_2c11633e3254558e5d43384580274d9d80f7";
+var DeepSourceURL = builder.Configuration["deepsource_url"];
+
+
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped<WeatherForecastService>();
 
-//builder.Services.AddSingleton<IGitClient, GitClient>(service => { return new GitClient(token); });
-
-
 builder.Services.AddTransient<IGitClient, GitClient>(service => new GitClient(rameshToken));
-
+builder.Services.AddTransient<IDeepsourceClient, DeepsourceClient>(service => new DeepsourceClient(DeepSourceURL,DeepSourceToken));
 builder.Services.AddTransient<IBranchService, BranchService>();
 builder.Services.AddTransient<IBuildService, BuildService>();
 builder.Services.AddTransient<ICommitService, CommitService>();
@@ -36,6 +37,7 @@ builder.Services.AddTransient<IDeploymentService, DeploymentService>();
 builder.Services.AddTransient<ICommitService, CommitService>();
 builder.Services.AddTransient<IPullService, PullService>();
 builder.Services.AddTransient<IRepoService, RepoService>();
+builder.Services.AddTransient<ICodeCoverage, CodeCoverageService>();
 
 
 builder.Services.AddSingleton<IDashboardService, DashboardService>(service =>
@@ -46,8 +48,8 @@ builder.Services.AddSingleton<IDashboardService, DashboardService>(service =>
                                 service.GetRequiredService<IDeploymentService>(),
                                 service.GetRequiredService<ICommitService>(),
                                 service.GetRequiredService<IPullService>(),
-                                service.GetRequiredService<IRepoService>()
-                                    ));
+                                service.GetRequiredService<IRepoService>(),
+                                service.GetRequiredService<ICodeCoverage>()));
 
 
 builder.Services.AddHttpClient<IAlbumDataService, AlbumDataService>

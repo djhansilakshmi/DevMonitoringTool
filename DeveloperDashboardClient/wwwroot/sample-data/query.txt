@@ -1,0 +1,53 @@
+﻿{       
+    repository( name:"DevMonitoringTool",
+      login:"djhansilakshmi",     
+      vcsProvider:GITHUB
+    )
+    {   name
+        id
+        metrics
+        {
+            name         
+            description
+            positiveDirection
+            unit            
+            minValueAllowed
+            maxValueAllowed
+            isThresholdEnforced 
+            isReported
+            items{
+                id
+                key
+                threshold
+                latestValue
+                latestValueDisplay
+                thresholdStatus
+                values
+                {
+                    pageInfo
+                    {
+                        hasNextPage
+                        hasPreviousPage
+                        startCursor
+                        endCursor
+                    }
+                    edges
+                    {
+                     node
+                     {
+                         id
+                         value
+                         valueDisplay
+                         threshold
+                         thresholdStatus
+                         commitOid
+                         createdAt
+                     }
+                     cursor
+                    }
+                    totalCount
+                }                
+            }  
+        }
+    }  		    
+}
