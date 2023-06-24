@@ -1,8 +1,9 @@
-﻿using DeveloperDashboardAPI.Clients;
-using DeveloperDashboardAPI.Dtos;
+﻿using DashboardLibAPI.Dtos;
+using DeveloperDashboardAPI.Clients;
 using Newtonsoft.Json;
+using System.Dynamic;
 
-namespace DeveloperDashboardClient.Services.GitServices
+namespace DeveloperDashboardAPI.DataServices.GitServices
 {
     public class PullService : IPullService
     {
@@ -14,6 +15,7 @@ namespace DeveloperDashboardClient.Services.GitServices
 
         public async Task<List<PullRequest>> Get(string owner, string repo, string state = "all")
         {
+
             var responseContent = string.Empty;
             string url = $"repos/{owner}/{repo}/pulls?state={state}";
             responseContent = await _gitClientCalls.SendAsync(url).ConfigureAwait(false);

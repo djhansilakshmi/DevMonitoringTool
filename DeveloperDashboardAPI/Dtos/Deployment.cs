@@ -10,6 +10,7 @@ namespace DeveloperDashboardAPI.Dtos
         [JsonProperty("id")]
         public int Id { get; set; }
 
+        [JsonProperty("creator")]
         public CreatorDetails CreatorDetails { get; set; }
 
         [JsonProperty("updated_at")]
@@ -21,6 +22,6 @@ namespace DeveloperDashboardAPI.Dtos
     {
 
         [JsonProperty("login")]
-        public int login { get; set; }
+        public string login { get; set; }
     }
 }

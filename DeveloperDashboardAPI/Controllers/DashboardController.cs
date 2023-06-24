@@ -1,5 +1,5 @@
-﻿using DeveloperDashboardAPI.Dtos;
-using DeveloperDashboardAPI.Services;
+﻿using DashboardLib.Dtos;
+using DeveloperDashboardAPI.Services.DataServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeveloperDashboardAPI.Controllers
@@ -8,6 +8,7 @@ namespace DeveloperDashboardAPI.Controllers
     [ApiController]
     public class DashboardController : ControllerBase
     {
+
         private readonly ILogger<DashboardController> _logger;
         private readonly IDashboardService _dashboardService; 
 
@@ -17,16 +18,18 @@ namespace DeveloperDashboardAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "alldata")]
+        [HttpGet("alldata")]
         public async Task<ActionResult<IEnumerable<Repositories>>> GetAllData()
         {
-            List<Repositories>? result = null;
+            List<Repositories>? gitResponse = null;
             try
             {
-                result = await CacheServices.GetCachedResponse<List<Repositories>>("GitResponse", _dashboardService.GetAllProjectsFromAllTeams);
+                //result = await CacheServices.GetCachedResponse<List<Repositories>>("GitResponse", _dashboardService.GetAllProjectsFromAllTeams);
                 //var result = await _dashboardService.GetAllProjectsFromAllTeams().ConfigureAwait(false);
 
-                if (result == null)
+                gitResponse = await _dashboardService.GetMasterProjectsFromAllTeams().ConfigureAwait(false);
+
+                if (gitResponse == null)
                 {
                     return NotFound();
                 }
@@ -37,8 +40,54 @@ namespace DeveloperDashboardAPI.Controllers
                 throw;
             }
 
-            return Ok(result);
+            return Ok(gitResponse);
         }
+
+        //[HttpGet("{repoName:length(20)}", Name = "GetRepo")]
+        //public async Task<ActionResult<IEnumerable<Repositories>>> FilterByProjects(string repoName)
+        //{
+        //    List<Repositories>? gitResponse = null;
+        //    try
+        //    {
+        //        gitResponse = await _dashboardService.FilterByProjects(repoName).ConfigureAwait(false);
+              
+        //        if (gitResponse == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, ex.Message);
+        //        throw;
+        //    }
+
+        //    return Ok(gitResponse);
+        //}
+
+        //[HttpGet(Name = "GetAllMaster")]
+        //public async Task<ActionResult<IEnumerable<Repositories>>> GetAllMasterData()
+        //{
+        //    List<Repositories>? gitResponse = null;
+        //    try
+        //    {
+
+        //        gitResponse = await _dashboardService.GetMasterProjectsFromAllTeams().ConfigureAwait(false);
+
+
+        //        if (gitResponse == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, ex.Message);
+        //        throw;
+        //    }
+
+        //    return Ok(gitResponse);
+        //}
 
 
         /// This is just a placeholder endpoint, update the code as per requirement

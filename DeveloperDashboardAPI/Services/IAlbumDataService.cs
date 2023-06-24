@@ -1,6 +1,6 @@
 ﻿using DeveloperDashboard.Dtos;
 
-namespace DeveloperDashboard.DataServices
+namespace DeveloperDashboardAPI.Services.DataServices
 {
     public interface IAlbumDataService
     {

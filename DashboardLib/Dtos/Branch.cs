@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using DashboardLib.Dtos;
+using Newtonsoft.Json;
 
-namespace DeveloperDashboardClient.Dtos
+namespace DashboardLibAPI.Dtos
 {
     public class Branch
     {
@@ -14,6 +15,6 @@ namespace DeveloperDashboardClient.Dtos
 
         public List<Deployment> Deployments { get; set; }
 
-        public CodeCoverage CodeCoverage { get; set; }
+       // public CodeCoverage CodeCoverage { get; set; }
     }
 }

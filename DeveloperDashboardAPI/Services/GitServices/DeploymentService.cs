@@ -1,8 +1,8 @@
-﻿using DeveloperDashboardAPI.Clients;
-using DeveloperDashboardAPI.Dtos;
+﻿using DashboardLib.Dtos;
+using DeveloperDashboardAPI.Clients;
 using Newtonsoft.Json;
 
-namespace DeveloperDashboardClient.Services.GitServices
+namespace DeveloperDashboardAPI.DataServices.GitServices
 {
     public class DeploymentService : IDeploymentService
     {

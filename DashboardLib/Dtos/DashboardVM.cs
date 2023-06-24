@@ -1,4 +1,4 @@
-﻿namespace DeveloperDashboardClient.Dtos
+﻿namespace DashboardLib.Dtos
 {
     public class DashboardVM
     {

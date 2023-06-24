@@ -1,4 +1,4 @@
-﻿namespace DeveloperDashboardAPI.Services
+﻿namespace DeveloperDashboardAPI.Services.DataServices
 {
     public class SearchService
     {

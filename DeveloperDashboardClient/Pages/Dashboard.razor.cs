@@ -1,5 +1,6 @@
-﻿using DeveloperDashboardClient.DataServices;
-using DeveloperDashboardClient.Dtos;
+﻿
+using DashboardLib.Dtos;
+using DeveloperDashboardClient.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace DeveloperDashboardClient.Pages
@@ -7,25 +8,60 @@ namespace DeveloperDashboardClient.Pages
     public partial class Dashboard : ComponentBase
     {
         [Inject]
-        public IDashboardService _dashboardService { get; set; }
+        public IDashboardServiceUI _dashboardService { get; set; }
+
+
 
         List<Repositories> dashboardVMs { get; set; }
+        List<Repositories> repos { get; set; }
 
-        protected override async void OnInitialized()
+        public string selectedRepo { get; set; }
+
+        protected override async Task OnInitializedAsync()
         {
-            await GetAllData();
+            await GetAllProjects();
         }
+
+        public async Task GetAllProjects()
+        {
+            try
+            {
+                var projects = await _dashboardService.GetAllRepos().ConfigureAwait(false);
+                repos = projects.ToList();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
+        public async Task GetProjectDetails()
+        {
+            try
+            {
+                var projects = await _dashboardService.FilterByProjects(selectedRepo).ConfigureAwait(false);
+                repos = projects.ToList();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
+
 
         public async Task GetAllData()
         {
             try
             {
-                var gitResponse = await CacheServices.GetCachedResponse<List<Repositories>>("GitResponse", async () =>
-                 {
-                     return await _dashboardService.GetAllProjectsFromAllTeams().ConfigureAwait(false);
-                 });
+                var gitResponse = await _dashboardService.GetMasterProjectsFromAllTeams().ConfigureAwait(false);
 
-                //var dash = await _dashboardService.GetAllProjectsFromAllTeams().ConfigureAwait(false);
                 dashboardVMs = gitResponse.ToList();
             }
             catch (Exception ex)

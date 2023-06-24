@@ -1,10 +1,11 @@
 using DeveloperDashboardAPI.Clients;
 using DeveloperDashboardAPI.Services;
-using DeveloperDashboardAPI.Services.GitServices;
-using DeveloperDashboardClient.Services.GitServices;
+using DeveloperDashboardAPI.DataServices;
+using DeveloperDashboardAPI.DataServices.GitServices;
+using DeveloperDashboardAPI.Services.DataServices;
 
-var owner = "rganesanAltimetrik";
-var rameshToken = "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";  //"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";
+var owner = "";
+var rameshToken = "";
 
 // Add services to the container.
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -37,16 +38,15 @@ builder.Services.AddTransient<ICommitService, CommitService>();
 builder.Services.AddTransient<IPullService, PullService>();
 builder.Services.AddTransient<IRepoService, RepoService>();
 
-
 builder.Services.AddSingleton<IDashboardService, DashboardService>(service =>
                              new DashboardService(owner,
-                                service.GetRequiredService<IBranchService>(),
+                               service.GetRequiredService<IBranchService>(),
                                 service.GetRequiredService<IBuildService>(),
-                               //service.GetRequiredService<ICommitService>(),
                                 service.GetRequiredService<IDeploymentService>(),
                                 service.GetRequiredService<ICommitService>(),
                                 service.GetRequiredService<IPullService>(),
-                                service.GetRequiredService<IRepoService>()));
+                                service.GetRequiredService<IRepoService>()
+                                    ));
 
 //builder.Services.AddHttpClient<IDashboardService, DashboardService>
 //    (spds => spds.BaseAddress = new Uri(builder.Configuration["api_jsonplaceholder_base_url"]));
@@ -61,6 +61,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+
 
 app.UseCors(MyAllowSpecificOrigins);
 

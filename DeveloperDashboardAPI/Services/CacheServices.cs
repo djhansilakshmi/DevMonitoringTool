@@ -1,9 +1,10 @@
 ﻿using System.Runtime.Caching;
 
-namespace DeveloperDashboardAPI.Services
+namespace DeveloperDashboardAPI.Services.DataServices
 {
     public class CacheServices
     {
+
         private static readonly ObjectCache cache = MemoryCache.Default;
         private static readonly TimeSpan cacheDuration = TimeSpan.FromMinutes(10);
 
@@ -20,7 +21,6 @@ namespace DeveloperDashboardAPI.Services
             {
                 AbsoluteExpiration = DateTimeOffset.Now.Add(cacheDuration)
             };
-
             cache.Set(cacheKey, response, policy);
 
             return response;

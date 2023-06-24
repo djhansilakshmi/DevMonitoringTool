@@ -1,9 +1,9 @@
 ﻿using DeveloperDashboardAPI.Clients;
-using DeveloperDashboardAPI.Dtos;
-using DeveloperDashboardClient.Services.GitServices;
+using DashboardLibAPI.Dtos;
 using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
 
-namespace DeveloperDashboardAPI.Services.GitServices
+namespace DeveloperDashboardAPI.DataServices.GitServices
 {
     public class BranchService : IBranchService
     {
@@ -11,6 +11,19 @@ namespace DeveloperDashboardAPI.Services.GitServices
         public BranchService(IGitClient gitCalls)
         {
             _gitClientCalls = gitCalls;
+        }
+
+        public async Task<Branch> Get(string owner, string repo, string branchName)
+        {
+            var responseContent = string.Empty;
+            string url = $"repos/{owner}/{repo}/branches/{branchName}";
+            responseContent = await _gitClientCalls.SendAsync(url).ConfigureAwait(false);
+
+            var branches = JsonConvert.DeserializeObject<Branch>(responseContent);
+
+            return branches;
+
+
         }
 
         public async Task<List<Branch>> GetAll(string owner, string repo)
@@ -22,6 +35,7 @@ namespace DeveloperDashboardAPI.Services.GitServices
             var branches = JsonConvert.DeserializeObject<List<Branch>>(responseContent);
 
             return branches;
+
         }
     }
 }

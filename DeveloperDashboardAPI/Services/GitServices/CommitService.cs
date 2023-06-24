@@ -1,6 +1,6 @@
 ﻿using DeveloperDashboardAPI.Clients;
 
-namespace DeveloperDashboardClient.Services.GitServices
+namespace DeveloperDashboardAPI.DataServices.GitServices
 {
     public class CommitService : ICommitService
     {

@@ -1,4 +1,4 @@
-﻿namespace DeveloperDashboardClient.Services.GitServices
+﻿namespace DeveloperDashboardAPI.DataServices.GitServices
 {
     public interface ICommitService
     {

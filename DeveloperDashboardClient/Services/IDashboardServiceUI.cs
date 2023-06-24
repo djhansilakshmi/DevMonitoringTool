@@ -1,8 +1,10 @@
-﻿using DashboardLib.Dtos;
+﻿
 
-namespace DeveloperDashboardAPI.Services.DataServices
+using DashboardLib.Dtos;
+
+namespace DeveloperDashboardClient.Services
 {
-    public interface IDashboardService
+    public interface IDashboardServiceUI
     {
         Task<List<Repositories>> GetAllProjectsFromAllTeams();
 

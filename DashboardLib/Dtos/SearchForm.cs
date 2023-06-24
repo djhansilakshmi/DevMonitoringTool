@@ -1,4 +1,4 @@
-﻿namespace DeveloperDashboardClient.Model
+﻿namespace DashboardLib.Dtos
 {
     public class SearchForm
     {

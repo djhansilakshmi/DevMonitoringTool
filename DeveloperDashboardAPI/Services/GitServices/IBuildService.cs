@@ -1,6 +1,6 @@
-﻿using DeveloperDashboardAPI.Dtos;
+﻿using DashboardLib.Dtos;
 
-namespace DeveloperDashboardClient.Services.GitServices
+namespace DeveloperDashboardAPI.DataServices.GitServices
 {
     public interface IBuildService
     {

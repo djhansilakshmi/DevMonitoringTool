@@ -12,8 +12,8 @@ namespace DeveloperDashboardAPI.Dtos
 
     public class ActionWorkflowRun
     {
-        //[JsonProperty("repository")]
-        //public Repository RepoName { get; set; }
+        [JsonProperty("id")]
+        public long ActionId { get; set; }
 
         [JsonProperty("head_branch")]
         public string BranchName { get; set; }
