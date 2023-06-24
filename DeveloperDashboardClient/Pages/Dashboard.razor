@@ -1,31 +1,75 @@
-﻿@page "/dashboard"
+﻿@page "/"
 @using DeveloperDashboardClient.DataServices;
+@using DeveloperDashboardClient.Model;
 
+<section class="fw-bolder fs-4">
+    <div class="d-flex flex-row align-items-center justify-content-between">
+        <div>
+            Dashboard
+        </div>
+        <div>
+            <button class="btn btn-outline-dark">Download CSV</button>
+        </div>
+    </div>
+</section>
 
-<h3>Dashboard</h3>
+<section>
+    <EditForm Model="@searchForm" OnSubmit="@SubmitHandler" class="d-flex align-items-center py-5  justify-content-between">
 
+        <div class="d-flex flex-fill align-items-center pe-4">
+            <label class="flex-fill fw-normal fs-6 me-3 form-label">Team</label>
+            @*<InputText id="teamfilter" @bind-Value="searchForm.TeamFilter"></InputText>*@
+            <select class="custom-select form-select" title="Team is Required">
+                <option value="Select" selected disabled="disabled">Select Team</option>
+                <option value="Team-42">Team42</option>
+                <option value="contentsystem">Content system</option>
+                <option value="ultron">Ultron</option>
+                <option value="maurauders">Maurauders</option>
+            </select>
+
+        </div>
+        <div class="d-flex flex-fill align-items-center pe-4">
+            <label class="fw-normal fs-6 me-3 form-label">Project</label>
+            @*<InputText id="teamproject" @bind-Value="searchForm.TeamProject"></InputText>*@
+            <select class="custom-select form-select" title="Project is Required">
+                <option value="Select" selected disabled="disabled">Select Project</option>
+                <option value="Team-42">Team42</option>
+                <option value="contentsystem">Content system</option>
+                <option value="ultron">Ultron</option>
+                <option value="maurauders">Maurauders</option>
+                @* @foreach (var project in projects)
+                {
+                <option value="project">project</option>
+                }*@
+            </select>
+        </div>
+        <button class="btn btn-outline-dark me-4">Search</button>
+        <button type="reset" class="btn btn-outline-danger">Reset All Filters</button>
+    </EditForm>
+</section>
 <button type="button" @onclick=GetAllData>Get Data</button>
 
-<table class="table">
+<table class="table grid-design">
     <thead>
         <tr>
-            <th>Project #</th>
-            <th>Branch #</th>
-            <th>PR #</th>
-            <th>Code Coverage #</th>
-            <th>Last Deployed #</th>
-            <th>Build Status#</th>
-
+            <th>Team</th>
+            <th>Project</th>
+            <th>Branch</th>
+            <th>Coverage</th>
+            <th>Build Id</th>
+            <th>Build Status</th>
+            <th>Last Deployed Date</th>
         </tr>
     </thead>
     <tbody>
-        @if (dashboardVMs is not null)
+        @*@if (dashboardVMs is not null)
         {
             @foreach (var dashboard in dashboardVMs)
             {
                 @foreach (var branch in @dashboard.Branches)
                 {
                     <tr>
+                        <td>Team Name</td>
                         <td>@dashboard.Name</td>
                         <td>@branch.Name</td>
                         <td>@branch.PullRequests?.Count</td>
@@ -37,14 +81,54 @@
                 }
             }
 
-        }
+        }*@
+        <tr>
+            <td>Content Systems</td>
+            <td> <p data-toggle="modal" data-target="#exampleModal" @onclick="@OnShowModalClick"> <span class="project-link">Ifarm</span> </p></td>
+            <td>Master</td>
+            <td>78.7</td>
+            <td>1</td>
+            <td>Success</td>
+            <td>12/12/2023</td>
+
+        </tr>
     </tbody>
 </table>
 
+<Modal @ref="modal" Title="Repository Information" UseStaticBackdrop="true" Size="ModalSize.ExtraLarge">
+    <BodyTemplate>
+        <RepoInfo />
+    </BodyTemplate>
+</Modal>
+
+
 
 @code {
+    private SearchForm searchForm = new();
+    private Modal modal;
+
+    [Parameter]
+    public IEnumerable<string> Teams { get; set; } = new List<string>() { "Team-42", "Ultron", "Maurauders", "Content systems" };
+
+    private IEnumerable<string> SearchTeams(string searchText)
+    {
+        return Teams.Where(x => x == searchText).ToList();
+    }
 
 
+    public void SubmitHandler()
+    {
+        var a = searchForm.TeamFilter;
+        var b = searchForm.TeamProject;
+    }
 
+    private async Task OnShowModalClick()
+    {
+        await modal?.ShowAsync();
+    }
 
+    private async Task OnHideModalClick()
+    {
+        await modal?.HideAsync();
+    }
 }

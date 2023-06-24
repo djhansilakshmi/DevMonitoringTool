@@ -1,11 +1,11 @@
-﻿@page "/"
+﻿@*@page "/"
 @using DeveloperDashboardClient.Model;
 
 <PageTitle>
     Metrics Dashboard
-</PageTitle>
+</PageTitle>*@
 
-<section class="fw-bolder fs-4">
+@*<section class="fw-bolder fs-4">
     <div class="d-flex flex-row align-items-center justify-content-between">
         <div>
             Dashboard
@@ -14,9 +14,9 @@
             <button class="btn btn-outline-dark">Download CSV</button>
         </div>
     </div>
-</section>
+</section>*@
 
-<section>
+@*<section>
     <EditForm Model="@searchForm" OnSubmit="@SubmitHandler" class="d-flex align-items-center py-5">
 
         @*<BlazoredTypeahead SearchMethod="@SearchFilms"
@@ -33,7 +33,7 @@
         </NotFoundTemplate>
         </BlazoredTypeahead>*@
 
-        <div class="d-flex align-items-center pe-4">
+       @* <div class="d-flex align-items-center pe-4">
             <label class="fw-normal fs-6 me-3">Filter By Team</label>
             <InputText id="teamfilter" @bind-Value="searchForm.TeamFilter"></InputText>
         </div>
@@ -44,20 +44,20 @@
         <button class="btn btn-outline-dark me-4">Search</button>
         <button type="reset" class="btn btn-outline-danger">Reset All Filters</button>
     </EditForm>
-</section>
+</section>*@
 
-<section>
-    <div class="grid-design">
-        <FetchData />
+@*<section>
+    <div>
+        <Dashboard />
     </div>
-</section>
+</section>*@
 
 
-@code {
+@*@code {
     private SearchForm searchForm = new();
     public void SubmitHandler()
     {
         var a = searchForm.TeamFilter;
         var b = searchForm.TeamProject;
     }
-}
+}*@
