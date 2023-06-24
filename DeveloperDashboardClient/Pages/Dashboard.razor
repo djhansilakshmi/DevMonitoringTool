@@ -63,7 +63,7 @@
     <tbody>
         @if (dashboardVMs is not null)
         {
-            @foreach (var dashboard in dashboardVMs)
+            @foreach (var dashboard in dashboardVMs.Skip(2))
             {
                 @foreach (var branch in @dashboard.Branches)
                 {
@@ -74,17 +74,15 @@
                         @*<td>@branch.PullRequests?.Count</td>*@
                         <td>sample 8.5</td>
 
-                         @if (branch.Actions is not null && branch.Actions.ActionWorkflowRuns.Count > 0)
+                        @if (branch.Actions is not null && branch?.Actions?.ActionWorkflowRuns?.Count > 0)
                         {
                             <td>@branch.Actions.ActionWorkflowRuns[0].ActionId</td>
                             <td>@branch.Actions.ActionWorkflowRuns[0].Conclusion</td>
-
                         }
                         else
                         {
                             <td></td>
                             <td></td>
-
                         }
 
                         @if (branch.Deployments is not null && branch.Deployments.Count > 0)
@@ -97,13 +95,9 @@
                             <td></td>
 
                         }
-                       
-
-
                     </tr>
                 }
             }
-
         }
         <tr>
             <td>Content Systems</td>

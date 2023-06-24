@@ -10,10 +10,8 @@ namespace DeveloperDashboardClient.Pages
         [Inject]
         public IDashboardServiceUI _dashboardService { get; set; }
 
-
-
         List<Repositories> dashboardVMs { get; set; }
-        List<Repositories> repos { get; set; }
+        List<Repositories> repos { get; set; } 
 
         public string selectedRepo { get; set; }
 
@@ -31,11 +29,8 @@ namespace DeveloperDashboardClient.Pages
             }
             catch (Exception)
             {
-
-                throw;
+               // throw;
             }
-
-
         }
 
         public async Task GetProjectDetails()
@@ -48,10 +43,8 @@ namespace DeveloperDashboardClient.Pages
             catch (Exception)
             {
 
-                throw;
+                //throw;
             }
-
-
         }
 
 
