@@ -1,11 +1,17 @@
 ﻿@page "/"
 @using DashboardLib.Dtos;
-
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <section class="fw-bolder fs-4">
     <div class="d-flex flex-row align-items-center justify-content-between">
- 
+        <div>
+            @if (dashboardVMs == null)
+            {
+                <div>
+                    <i class="fa fa-refresh fa-spin" style="font-size:36px;color:deepskyblue"></i>
+                </div>
+            }
+        </div>
         <div>
             <button class="btn btn-outline-dark">Download CSV</button>
         </div>
@@ -46,7 +52,8 @@
         <button type="reset" class="btn btn-outline-danger">Reset All Filters</button>
     </EditForm>
 </section>
-<button type="button" @onclick=GetAllData>Get Data</button>
+
+@*<button type="button" @onclick=GetAllData>Get Data</button>*@
 
 <table class="table grid-design">
     <thead>
