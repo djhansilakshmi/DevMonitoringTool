@@ -1,4 +1,5 @@
-﻿using DeveloperDashboardClient.DataServices.GitServices;
+﻿using DeveloperDashboardClient.DataServices.DeepSourceServices;
+using DeveloperDashboardClient.DataServices.GitServices;
 using DeveloperDashboardClient.Dtos;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace DeveloperDashboardClient.DataServices
         private readonly ICommitService _commitService;
         private readonly IPullService _pullService;
         private readonly IRepoService _repoService;
+        private readonly ICodeCoverage _codeCoverage;
 
 
         public DashboardService(string owner,
@@ -26,7 +28,8 @@ namespace DeveloperDashboardClient.DataServices
                                 IDeploymentService deploymentService,
                                 ICommitService commitService,
                                 IPullService pullService,
-                                IRepoService repoService)
+                                IRepoService repoService,
+                                ICodeCoverage codeCoverage)
         {
             this._owner = owner;
             this._branchService = branchService;
@@ -35,6 +38,7 @@ namespace DeveloperDashboardClient.DataServices
             this._commitService = commitService;
             this._pullService = pullService;
             this._repoService = repoService;
+            this._codeCoverage = codeCoverage;
         }
         public List<DashboardVM> FilterByProjects(string Project)
         {
@@ -67,6 +71,7 @@ namespace DeveloperDashboardClient.DataServices
                     var pullDetails = await GetPullRequest(repoName);
                     var buildDetails = await GetBuilds(repoName);
                     var deploymentDetails = await GetDeployment(repoName);
+                    var linecoverage = await GetCoverage(repoName);
 
                     for (int i = 0; i < branchDetails.Count; i++)
                     {
@@ -94,6 +99,15 @@ namespace DeveloperDashboardClient.DataServices
                             deployments.AddRange(deploymentDetails.Where(y => y.BranchName.Equals(branchDetails[i].Name)).ToList());
 
                             branchDetails[i].Deployments = deployments;
+
+                        }
+
+                        if (String.IsNullOrEmpty(linecoverage.ToString()))
+                        {
+                            CodeCoverage codeCoverage = new CodeCoverage();
+                            //codeCoverage.(deploymentDetails.Where(y => y.BranchName.Equals(branchDetails[i].Name)).ToList());
+
+                            branchDetails[i].CodeCoverage.LineCoverage = linecoverage.ToString();
 
                         }
                     }
@@ -133,6 +147,11 @@ namespace DeveloperDashboardClient.DataServices
         async Task<List<Deployment>> GetDeployment(string repository)
         {
             return await _deploymentService.Get(_owner, repository);
+        }
+
+        async Task<CodeCoverage> GetCoverage(string repository)
+        {
+            return await _codeCoverage.Get(_owner, repository);
         }
 
     }
