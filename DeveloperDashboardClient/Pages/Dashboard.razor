@@ -52,17 +52,17 @@
 <table class="table grid-design">
     <thead>
         <tr>
-            <th>Team #</th>
-            <th>Project #</th>
-            <th>Branch #</th>
-            <th>PR #</th>
-            <th>Code Coverage #</th>
-            <th>Last Deployed #</th>
-            <th>Build Status#</th>
+            <th>Team</th>
+            <th>Project</th>
+            <th>Branch</th>
+            <th>Coverage</th>
+            <th>Build Id</th>
+            <th>Build Status</th>
+            <th>Last Deployed Date</th>
         </tr>
     </thead>
     <tbody>
-        @if (dashboardVMs is not null)
+        @*@if (dashboardVMs is not null)
         {
             @foreach (var dashboard in dashboardVMs)
             {
@@ -81,13 +81,31 @@
                 }
             }
 
-        }
+        }*@
+        <tr>
+            <td>Content Systems</td>
+            <td> <p data-toggle="modal" data-target="#exampleModal" @onclick="@OnShowModalClick"> <span class="project-link">Ifarm</span> </p></td>
+            <td>Master</td>
+            <td>78.7</td>
+            <td>1</td>
+            <td>Success</td>
+            <td>12/12/2023</td>
+
+        </tr>
     </tbody>
 </table>
+
+<Modal @ref="modal" Title="Repository Information" UseStaticBackdrop="true" Size="ModalSize.ExtraLarge">
+    <BodyTemplate>
+        <RepoInfo />
+    </BodyTemplate>
+</Modal>
+
 
 
 @code {
     private SearchForm searchForm = new();
+    private Modal modal;
 
     [Parameter]
     public IEnumerable<string> Teams { get; set; } = new List<string>() { "Team-42", "Ultron", "Maurauders", "Content systems" };
@@ -102,5 +120,15 @@
     {
         var a = searchForm.TeamFilter;
         var b = searchForm.TeamProject;
+    }
+
+    private async Task OnShowModalClick()
+    {
+        await modal?.ShowAsync();
+    }
+
+    private async Task OnHideModalClick()
+    {
+        await modal?.HideAsync();
     }
 }
