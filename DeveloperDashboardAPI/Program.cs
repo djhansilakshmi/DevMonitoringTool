@@ -4,8 +4,8 @@ using DeveloperDashboardAPI.DataServices;
 using DeveloperDashboardAPI.DataServices.GitServices;
 using DeveloperDashboardAPI.Services.DataServices;
 
-var owner = "";
-var rameshToken = "";
+var owner = "rganesanAltimetrik";
+var rameshToken = "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";
 
 // Add services to the container.
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -61,7 +61,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-
 
 app.UseCors(MyAllowSpecificOrigins);
 

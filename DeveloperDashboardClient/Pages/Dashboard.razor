@@ -20,7 +20,6 @@
 
 <section>
     <EditForm Model="@searchForm" OnSubmit="@SubmitHandler" class="d-flex align-items-center py-5  justify-content-between">
-
         <div class="d-flex flex-fill align-items-center pe-4">
             <label class="flex-fill fw-normal fs-6 me-3 form-label">Team</label>
             @*<InputText id="teamfilter" @bind-Value="searchForm.TeamFilter"></InputText>*@
@@ -31,25 +30,24 @@
                 <option value="ultron">Ultron</option>*@
                 <option value="maurauders">Maurauders</option>
             </select>
-
         </div> 
         <div class="d-flex flex-fill align-items-center pe-4">
             <label class="fw-normal fs-6 me-3 form-label">Project</label>
-          
+
             <select @bind="selectedRepo" class="custom-select form-select" title="Project is Required">
                 <option value="Select" selected disabled="disabled">Select Project</option>
-                @if (repos is not null)
+                @if (dashboardVMs is not null)
                 {
-                    @foreach (var repo in repos)
+                    @foreach (var repo in dashboardVMs.Where(x => !x.Name.Contains("DevMonitoringTool", StringComparison.OrdinalIgnoreCase) & !x.Name.Contains("DevMonitoringToolAPI", StringComparison.OrdinalIgnoreCase)))
                     {
-                        <option value="@repo.Id">@repo.Name</option>
+                        <option value="@repo.Name">@repo.Name</option>
                     }
                 }
               
             </select>
         </div>
-        <button @onclick="GetProjectDetails" class="btn btn-outline-dark me-4">Search</button>
-        <button type="reset" class="btn btn-outline-danger">Reset All Filters</button>
+        <button @onclick="BtnSearch_GetProjectDetails" class="btn btn-outline-dark me-4">Search</button>
+        <button @onclick="BtnResetFilter_GetAllProjectDetails" type="reset" class="btn btn-outline-danger">Reset All Filters</button>
     </EditForm>
 </section>
 
@@ -70,7 +68,7 @@
     <tbody>
         @if (dashboardVMs is not null)
         {
-            @foreach (var dashboard in dashboardVMs.Skip(2))
+            @foreach (var dashboard in dashboardVMs)
             {
                 @foreach (var branch in @dashboard.Branches)
                 {
@@ -100,13 +98,12 @@
                         else
                         {
                             <td></td>
-
                         }
                     </tr>
                 }
             }
         }
-        <tr>
+        @*<tr>
             <td>Content Systems</td>
             <td> <p data-toggle="modal" data-target="#exampleModal" @onclick="@OnShowModalClick"> <span class="project-link">Ifarm</span> </p></td>
             <td>Master</td>
@@ -115,7 +112,7 @@
             <td>Success</td>
             <td>12/12/2023</td>
 
-        </tr>
+        </tr>*@
     </tbody>
 </table>
 
