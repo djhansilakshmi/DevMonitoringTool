@@ -74,7 +74,7 @@
                 {
                     <tr>
                         <td>Maruaders</td>
-                        <td><p data-toggle="modal" data-target="#exampleModal" @onclick="@OnShowModalClick"> <span class="project-link">@dashboard.Name</span> </p></td>
+                        <td><p data-toggle="modal" data-target="@dashboard" @onclick="@(()=>OnShowModalClick(dashboard))"> <span class="project-link">@dashboard.Name</span> </p></td>
                         <td>@branch.Name</td>
                         @*<td>@branch.PullRequests?.Count</td>*@
                         @*<td>sample 8.5</td>*@
@@ -119,13 +119,14 @@
 
 <Modal @ref="modal" Title="Repository Information" UseStaticBackdrop="true" Size="ModalSize.ExtraLarge">
     <BodyTemplate>
-        <RepoInfo />
+        <RepoInfo repo=@repository />
     </BodyTemplate>
 </Modal>
 
 @code {
     private SearchForm searchForm = new();
     private Modal modal;
+    private Repositories repository;
 
     [Parameter]
     public IEnumerable<string> Teams { get; set; } = new List<string>() { "Team-42", "Ultron", "Maurauders", "Content systems" };
@@ -141,8 +142,9 @@
         var b = searchForm.TeamProject;
     }
 
-    private async Task OnShowModalClick()
+    private async Task OnShowModalClick(Repositories repo)
     {
+        repository = repo;
         await modal?.ShowAsync();
     }
 
