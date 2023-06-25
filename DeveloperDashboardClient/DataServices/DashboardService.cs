@@ -11,6 +11,7 @@ namespace DeveloperDashboardClient.DataServices
     public class DashboardService : IDashboardService
     {
         private readonly string _owner;
+        private readonly string _DeepSourceowner;        
         private readonly IBranchService _branchService;
         private readonly IBuildService _buildService;
         private readonly ICommitService _ccmmitService;
@@ -21,7 +22,7 @@ namespace DeveloperDashboardClient.DataServices
         private readonly ICodeCoverage _codeCoverage;
 
 
-        public DashboardService(string owner,
+        public DashboardService(string owner,string DeepSourceowner,
                                 IBranchService branchService,
                                 IBuildService buildService,
                                 ICommitService CcmmitService,
@@ -32,6 +33,7 @@ namespace DeveloperDashboardClient.DataServices
                                 ICodeCoverage codeCoverage)
         {
             this._owner = owner;
+            this._DeepSourceowner = DeepSourceowner;
             this._branchService = branchService;
             this._buildService = buildService;
             this._deploymentService = deploymentService;
@@ -153,7 +155,7 @@ namespace DeveloperDashboardClient.DataServices
 
         async Task<CodeCoverage> GetCoverage(string repository)
         {
-            return await _codeCoverage.Get(_owner, repository);
+            return await _codeCoverage.Get(_DeepSourceowner, repository);
         }
 
     }

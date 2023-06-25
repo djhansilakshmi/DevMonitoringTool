@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Security.Policy;
 using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -7,7 +8,7 @@ namespace DeveloperDashboardClient.Client
 {
     public class DeepsourceClient : IDeepsourceClient
     {
-        private readonly HttpClient _httpClient;
+        private HttpClient _httpClient;
         private readonly string _token;
         private readonly string _url;
 
@@ -16,18 +17,29 @@ namespace DeveloperDashboardClient.Client
             _token = token;
             _url = url;
         }
-        public async Task<HttpResponseMessage> SendAsync( string data)
+        
+        public async  Task<string> SendAsync(string data)
         {
+            string responseContent = string.Empty;
             var queryObject = new
             {
                 query = data
             };
-            var launchQuery = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-            Uri uri = new Uri(_url);
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-            var response = await _httpClient.PostAsync(uri, launchQuery).ConfigureAwait(false);
-            return response;
+          
+            using (_httpClient = new HttpClient())
+            {
+                _httpClient.BaseAddress = new Uri(_url);
+                var request = new HttpRequestMessage(HttpMethod.Post, _url);
+                request.Headers.Add("Authorization", $"Bearer {_token}");
+                request.Content = new StringContent(JsonConvert.SerializeObject(queryObject), Encoding.UTF8, "application/json"); ;
+                var response = await _httpClient.SendAsync(request);
 
+                if (response.IsSuccessStatusCode)
+                    responseContent = await response.Content.ReadAsStringAsync();
+
+            }
+            return responseContent;
         }
+
     }
 }
