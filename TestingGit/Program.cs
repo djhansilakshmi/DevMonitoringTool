@@ -1,7 +1,6 @@
 ﻿
 // See https://aka.ms/new-console-template for more information
 using DeveloperDashboardClient.Client;
-using DeveloperDashboardClient.Dtos;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

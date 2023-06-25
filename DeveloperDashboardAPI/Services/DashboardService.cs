@@ -1,6 +1,7 @@
 ﻿using DashboardLib.Dtos;
 using DashboardLibAPI.Dtos;
 using DeveloperDashboardAPI.DataServices.GitServices;
+using DeveloperDashboardAPI.DataServices.DeepSourceServices;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Runtime.Caching;
@@ -11,29 +12,34 @@ namespace DeveloperDashboardAPI.Services.DataServices
     public class DashboardService : IDashboardService
     {
         private readonly string _owner;
+        private readonly string _DeepSourceowner;
         private readonly IBranchService _branchService;
         private readonly IBuildService _buildService;
         private readonly IDeploymentService _deploymentService;
         private readonly ICommitService _commitService;
         private readonly IPullService _pullService;
         private readonly IRepoService _repoService;
+        private readonly ICodeCoverage _codeCoverage;
 
 
-        public DashboardService(string owner,
+        public DashboardService(string owner, string DeepSourceowner,
                                 IBranchService branchService,
                                 IBuildService buildService,
                                 IDeploymentService deploymentService,
                                 ICommitService commitService,
                                 IPullService pullService,
-                                IRepoService repoService)
+                                IRepoService repoService, 
+                                ICodeCoverage codeCoverage)
         {
             this._owner = owner;
+            this._DeepSourceowner = DeepSourceowner;
             this._branchService = branchService;
             this._buildService = buildService;
             this._deploymentService = deploymentService;
             this._commitService = commitService;
             this._pullService = pullService;
             this._repoService = repoService;
+            this._codeCoverage = codeCoverage;
         }
         public async Task<List<Repositories>> FilterByProjects(string repoName)
         {
@@ -79,6 +85,8 @@ namespace DeveloperDashboardAPI.Services.DataServices
                     var pullDetails = await GetPullRequest(repoName);
                     var buildDetails = await GetBuilds(repoName);
                     var deploymentDetails = await GetDeployment(repoName);
+                    var linecoverage = await GetCoverage(repoName);
+
 
                     if (pullDetails is not null && pullDetails.Count > 0)
                     {
@@ -104,6 +112,19 @@ namespace DeveloperDashboardAPI.Services.DataServices
                         deployments.AddRange(deploymentDetails.Where(y => y.BranchName.Equals(branchDetails.Name)).ToList());
 
                         branchDetails.Deployments = deployments;
+
+                    }
+
+                    if (linecoverage.data.repository.metrics.Count > 0)
+                    {
+                         //List<Metric> metric = new List<Metric>();
+                         //metric = linecoverage.data.repository.metrics;
+                        CodeCoverage codeCoverage = new CodeCoverage();
+                        
+                        //codeCoverage.(deploymentDetails.Where(y => y.BranchName.Equals(branchDetails[i].Name)).ToList());
+                        //double lncoverage = branchDetails[i].CodeCoverage.data.repository.metrics[0].items[0].values.edges[0].node.value;
+                        branchDetails.CodeCoverage = linecoverage;
+
 
                     }
                 }
@@ -218,7 +239,11 @@ namespace DeveloperDashboardAPI.Services.DataServices
             return await _deploymentService.Get(_owner, repository);
         }
 
-       
+        async Task<CodeCoverage> GetCoverage(string repository)
+        {
+            return await _codeCoverage.Get(_DeepSourceowner, repository);
+        }
+
     }
 
 

@@ -15,6 +15,6 @@ namespace DashboardLibAPI.Dtos
 
         public List<Deployment> Deployments { get; set; }
 
-       // public CodeCoverage CodeCoverage { get; set; }
+        public CodeCoverage CodeCoverage { get; set; }
     }
 }
