@@ -79,7 +79,17 @@
                         <td><p data-toggle="modal" data-target="#exampleModal" @onclick="@OnShowModalClick"> <span class="project-link">@dashboard.Name</span> </p></td>
                         <td>@branch.Name</td>
                         @*<td>@branch.PullRequests?.Count</td>*@
-                        <td>sample 8.5</td>
+                        @*<td>sample 8.5</td>*@
+                        @if (branch.CodeCoverage.data.repository.metrics is not null && branch.CodeCoverage.data.repository.metrics[9].items[0].values.edges.Count > 0)
+                        {
+                            <td>@branch.CodeCoverage.data.repository.metrics[9].items[0].values.edges[0].node.value</td>
+                            @*<td>@branch.Deployments[0].CreatorDetails?.login</td>*@
+                        }
+                        else
+                        {
+                            <td></td>
+
+                        }
 
                         @if (branch.Actions is not null && branch?.Actions?.ActionWorkflowRuns?.Count > 0)
                         {
@@ -101,12 +111,12 @@
                         {
                             <td></td>
 
-                        }
+                        }                    
                     </tr>
                 }
             }
         }
-        <tr>
+       @* <tr>
             <td>Content Systems</td>
             <td> <p data-toggle="modal" data-target="#exampleModal" @onclick="@OnShowModalClick"> <span class="project-link">Ifarm</span> </p></td>
             <td>Master</td>
@@ -115,7 +125,7 @@
             <td>Success</td>
             <td>12/12/2023</td>
 
-        </tr>
+        </tr>*@
     </tbody>
 </table>
 
