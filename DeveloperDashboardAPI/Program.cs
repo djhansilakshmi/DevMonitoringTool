@@ -7,7 +7,7 @@ using DeveloperDashboardAPI.DataServices.DeepSourceServices;
 using DeveloperDashboardAPI.Client;
 
 var owner = "rganesanAltimetrik";
-var rameshToken = "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";
+var rameshToken = "";
 
 
 // Add services to the container.

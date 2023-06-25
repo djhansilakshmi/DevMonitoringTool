@@ -1,5 +1,5 @@
 ﻿using DeveloperDashboardAPI.Clients;
-using DashboardLibAPI.Dtos;
+using DashboardLib.Dtos;
 using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
 

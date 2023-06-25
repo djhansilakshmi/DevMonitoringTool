@@ -1,4 +1,4 @@
-﻿using DashboardLibAPI.Dtos;
+﻿using DashboardLib.Dtos;
 
 namespace DeveloperDashboardAPI.DataServices.GitServices
 {

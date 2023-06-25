@@ -1,4 +1,4 @@
-﻿namespace DashboardLibAPI.Dtos
+﻿namespace DashboardLib.Dtos
 {
     public class Data
     {

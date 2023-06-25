@@ -1,4 +1,4 @@
-﻿using DashboardLibAPI.Dtos;
+﻿using DashboardLib.Dtos;
 using DeveloperDashboardAPI.Clients;
 using Newtonsoft.Json;
 using System.Dynamic;

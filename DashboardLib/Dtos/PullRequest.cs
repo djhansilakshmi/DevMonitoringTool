@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace DashboardLibAPI.Dtos
+namespace DashboardLib.Dtos
 {
     public class PullRequest
     {

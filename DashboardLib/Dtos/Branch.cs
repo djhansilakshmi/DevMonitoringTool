@@ -1,7 +1,6 @@
-﻿using DashboardLib.Dtos;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace DashboardLibAPI.Dtos
+namespace DashboardLib.Dtos
 {
     public class Branch
     {
@@ -11,7 +10,11 @@ namespace DashboardLibAPI.Dtos
         public bool IsDefault { get; set; }
 
         public List<PullRequest> PullRequests { get; set; }
+
+        [JsonProperty("actions")]
         public Actions Actions { get; set; }
+
+        [JsonProperty("deployments")]
 
         public List<Deployment> Deployments { get; set; }
 

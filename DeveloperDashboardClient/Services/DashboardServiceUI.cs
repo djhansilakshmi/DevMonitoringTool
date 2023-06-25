@@ -1,6 +1,5 @@
 ﻿
 using DashboardLib.Dtos;
-using DashboardLibAPI.Dtos;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Runtime.Caching;
@@ -22,15 +21,21 @@ namespace DeveloperDashboardClient.Services
         public async Task<List<Repositories>> FilterByProjects(string repoName)
         {
 
-            //var repo = await GetRepo(_owner, repoName);
+            //var responseContent = string.Empty;
+            //string url = $"/api/Dashboard/GetRepo/{repoName}";
 
-            //var repos = new List<Repositories>();
-            //repos.Add(repo);
-            //var repoDetails = await GetAllRepositoriesDetails(repos);
+            //var request = new HttpRequestMessage(HttpMethod.Get, url);
+            //var response = await _httpClient.SendAsync(request);
 
-            //return repoDetails;
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    responseContent = await response.Content.ReadAsStringAsync();
+            //}
 
+            //var repositories = JsonConvert.DeserializeObject<List<Repositories>>(responseContent);
+            //return repositories;
             return null;
+
         }
 
         public List<DashboardVM> FilterByTeams(string Team)

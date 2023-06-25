@@ -1,8 +1,8 @@
 ﻿using DeveloperDashboardAPI.Client;
-using DashboardLibAPI.Dtos;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
+using DashboardLib.Dtos;
 
 namespace DeveloperDashboardAPI.DataServices.DeepSourceServices
 {

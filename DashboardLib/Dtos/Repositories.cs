@@ -1,5 +1,4 @@
-﻿using DashboardLibAPI.Dtos;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace DashboardLib.Dtos
 {
