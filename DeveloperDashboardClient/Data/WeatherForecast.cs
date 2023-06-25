@@ -1,3 +1,5 @@
+using System;
+
 namespace DeveloperDashboardClient.Data
 {
     public class WeatherForecast

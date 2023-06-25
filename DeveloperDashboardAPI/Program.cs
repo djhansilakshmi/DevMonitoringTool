@@ -1,14 +1,11 @@
+using DeveloperDashboardAPI.Client;
 using DeveloperDashboardAPI.Clients;
-using DeveloperDashboardAPI.Services;
-using DeveloperDashboardAPI.DataServices;
+using DeveloperDashboardAPI.DataServices.DeepSourceServices;
 using DeveloperDashboardAPI.DataServices.GitServices;
 using DeveloperDashboardAPI.Services.DataServices;
-using DeveloperDashboardAPI.DataServices.DeepSourceServices;
-using DeveloperDashboardAPI.Client;
 
-var owner = "rganesanAltimetrik";
-var rameshToken = "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";
-
+var owner = "";
+var rameshToken = "";
 
 // Add services to the container.
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -48,8 +45,9 @@ builder.Services.AddTransient<IRepoService, RepoService>();
 builder.Services.AddTransient<ICodeCoverage, CodeCoverageService>();
 
 builder.Services.AddSingleton<IDashboardService, DashboardService>(service =>
-                             new DashboardService(owner, DeepSourceowner,
-                               service.GetRequiredService<IBranchService>(),
+                             new DashboardService(owner, 
+                                DeepSourceowner,
+                                service.GetRequiredService<IBranchService>(),
                                 service.GetRequiredService<IBuildService>(),
                                 service.GetRequiredService<IDeploymentService>(),
                                 service.GetRequiredService<ICommitService>(),

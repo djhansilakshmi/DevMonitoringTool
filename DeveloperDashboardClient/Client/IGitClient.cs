@@ -1,4 +1,6 @@
-﻿namespace DeveloperDashboardClient.Client
+﻿using System.Threading.Tasks;
+
+namespace DeveloperDashboardClient.Client
 {
     public interface IGitClient
     {

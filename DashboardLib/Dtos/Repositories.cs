@@ -12,7 +12,5 @@ namespace DashboardLib.Dtos
         public long Id { get; set; }
 
         public List<Branch> Branches { get; set; }
-
-
     }
 }

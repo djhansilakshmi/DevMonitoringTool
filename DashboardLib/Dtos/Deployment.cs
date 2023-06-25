@@ -15,13 +15,11 @@ namespace DashboardLib.Dtos
 
         [JsonProperty("updated_at")]
         public DateTime DeployedDate { get; set; }//updatedAt
-
-
     }
+
     public class CreatorDetails
     {
-
         [JsonProperty("login")]
-        public string login { get; set; }
+        public string Login { get; set; }
     }
 }

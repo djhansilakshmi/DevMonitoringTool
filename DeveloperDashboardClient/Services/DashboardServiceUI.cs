@@ -1,10 +1,10 @@
 ﻿
 using DashboardLib.Dtos;
-using DashboardLibAPI.Dtos;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Runtime.Caching;
-using System.Text.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace DeveloperDashboardClient.Services
 {
@@ -18,10 +18,8 @@ namespace DeveloperDashboardClient.Services
             _httpClient = httpClient;
         }
 
-
         public async Task<List<Repositories>> FilterByProjects(string repoName)
         {
-
             //var repo = await GetRepo(_owner, repoName);
 
             //var repos = new List<Repositories>();

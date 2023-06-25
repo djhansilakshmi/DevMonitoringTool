@@ -12,7 +12,6 @@
 
     public enum BuildStatus
     {
-
         Failed = 0,
         Success = 1,
         InProgress = 2
