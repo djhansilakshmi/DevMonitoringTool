@@ -29,7 +29,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddScoped<WeatherForecastService>();
 
 builder.Services.AddTransient<IGitClient, GitClient>(service => new GitClient(rameshToken));
-builder.Services.AddTransient<IDeepsourceClient, DeepsourceClient>(service => new DeepsourceClient(DeepSourceURL,DeepSourceToken));
+builder.Services.AddTransient<IDeepsourceClient, DeepsourceClient>(service => new DeepsourceClient(DeepSourceURL, DeepSourceToken));
 builder.Services.AddTransient<IBranchService, BranchService>();
 builder.Services.AddTransient<IBuildService, BuildService>();
 builder.Services.AddTransient<ICommitService, CommitService>();

@@ -16,13 +16,13 @@ namespace DeveloperDashboardClient.DataServices.DeepSourceServices
 
         public async Task<CodeCoverage> Get(string owner, string repo, string vcsprovider = "GITHUB")
         {
-                var responseContent = string.Empty;
-                string data = @"{repository( name:"""+repo+@""",login:"""+owner+@""",vcsProvider:GITHUB){name  id metrics{name items {id values{ edges{node {value valueDisplay threshold thresholdStatus}} } }  }}}";
-                responseContent = await _deepsourceClientCalls.SendAsync(data).ConfigureAwait(false);
-                var codeCoverage = JsonConvert.DeserializeObject<CodeCoverage>(responseContent);
-                return codeCoverage;
+            var responseContent = string.Empty;
+            string data = @"{repository( name:""" + repo + @""",login:""" + owner + @""",vcsProvider:GITHUB){name  id metrics{name items {id values{ edges{node {value valueDisplay threshold thresholdStatus}} } }  }}}";
+            responseContent = await _deepsourceClientCalls.SendAsync(data).ConfigureAwait(false);
+            var codeCoverage = JsonConvert.DeserializeObject<CodeCoverage>(responseContent);
+            return codeCoverage;
         }
 
-      
+
     }
 }

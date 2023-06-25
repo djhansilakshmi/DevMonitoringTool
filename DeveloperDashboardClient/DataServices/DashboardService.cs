@@ -11,7 +11,7 @@ namespace DeveloperDashboardClient.DataServices
     public class DashboardService : IDashboardService
     {
         private readonly string _owner;
-        private readonly string _DeepSourceowner;        
+        private readonly string _DeepSourceowner;
         private readonly IBranchService _branchService;
         private readonly IBuildService _buildService;
         private readonly ICommitService _ccmmitService;
@@ -22,7 +22,7 @@ namespace DeveloperDashboardClient.DataServices
         private readonly ICodeCoverage _codeCoverage;
 
 
-        public DashboardService(string owner,string DeepSourceowner,
+        public DashboardService(string owner, string DeepSourceowner,
                                 IBranchService branchService,
                                 IBuildService buildService,
                                 ICommitService CcmmitService,

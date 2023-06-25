@@ -2,19 +2,19 @@
 {
     public class Data
     {
-          public RepositoryDetails repository { get; set; }
-            //public ViewerDetails viewer { get; set; }
+        public RepositoryDetails repository { get; set; }
+        //public ViewerDetails viewer { get; set; }
     }
 
     public class Edge
     {
         public Node node { get; set; }
-       // public string cursor { get; set; }
+        // public string cursor { get; set; }
     }
 
     public class Item
     {
-         public string id { get; set; }
+        public string id { get; set; }
         //public string key { get; set; }
         //public object threshold { get; set; }
         //public double? latestValue { get; set; }
@@ -25,7 +25,7 @@
 
     public class Metric
     {
-         public string name { get; set; }
+        public string name { get; set; }
         //public string description { get; set; }
         //public string positiveDirection { get; set; }
         //public string unit { get; set; }
@@ -43,7 +43,7 @@
         public string valueDisplay { get; set; }
         public object threshold { get; set; }
         public object thresholdStatus { get; set; }
-       // public string commitOid { get; set; }
+        // public string commitOid { get; set; }
         //public DateTime createdAt { get; set; }
     }
 
@@ -66,7 +66,7 @@
     public class ViewerDetails
     {
         public string email { get; set; }
-       
+
     }
 
     public class CodeCoverage
@@ -76,9 +76,9 @@
 
     public class Values
     {
-       // public PageInfo pageInfo { get; set; }
+        // public PageInfo pageInfo { get; set; }
         public List<Edge> edges { get; set; }
-       // public int totalCount { get; set; }
+        // public int totalCount { get; set; }
     }
 
 }

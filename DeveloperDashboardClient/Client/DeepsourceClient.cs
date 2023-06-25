@@ -17,15 +17,15 @@ namespace DeveloperDashboardClient.Client
             _token = token;
             _url = url;
         }
-        
-        public async  Task<string> SendAsync(string data)
+
+        public async Task<string> SendAsync(string data)
         {
             string responseContent = string.Empty;
             var queryObject = new
             {
                 query = data
             };
-          
+
             using (_httpClient = new HttpClient())
             {
                 _httpClient.BaseAddress = new Uri(_url);
