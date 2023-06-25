@@ -78,9 +78,9 @@
                         <td>@branch.Name</td>
                         @*<td>@branch.PullRequests?.Count</td>*@
                         @*<td>sample 8.5</td>*@
-                        @if (branch.CodeCoverage.data.repository.metrics is not null && branch.CodeCoverage.data.repository.metrics[9].items[0].values.edges.Count > 0)
+                        @if (branch.CodeCoverage.Data.Repository.Metrics is not null && branch.CodeCoverage.Data.Repository.Metrics[9].Items[0].Values.Edges.Count > 0)
                         {
-                            <td>@branch.CodeCoverage.data.repository.metrics[9].items[0].values.edges[0].node.value</td>
+                            <td>@branch.CodeCoverage.Data.Repository.Metrics[9].Items[0].Values.Edges[0].Node.Value</td>
                             @*<td>@branch.Deployments[0].CreatorDetails?.login</td>*@
                         }
                         else
@@ -123,8 +123,6 @@
     </BodyTemplate>
 </Modal>
 
-
-
 @code {
     private SearchForm searchForm = new();
     private Modal modal;
@@ -136,7 +134,6 @@
     {
         return Teams.Where(x => x == searchText).ToList();
     }
-
 
     public void SubmitHandler()
     {

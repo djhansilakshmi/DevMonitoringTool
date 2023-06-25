@@ -1,10 +1,8 @@
+using DeveloperDashboardAPI.Client;
 using DeveloperDashboardAPI.Clients;
-using DeveloperDashboardAPI.Services;
-using DeveloperDashboardAPI.DataServices;
+using DeveloperDashboardAPI.DataServices.DeepSourceServices;
 using DeveloperDashboardAPI.DataServices.GitServices;
 using DeveloperDashboardAPI.Services.DataServices;
-using DeveloperDashboardAPI.DataServices.DeepSourceServices;
-using DeveloperDashboardAPI.Client;
 
 var owner = "rganesanAltimetrik";
 var rameshToken = "";
@@ -48,8 +46,9 @@ builder.Services.AddTransient<IRepoService, RepoService>();
 builder.Services.AddTransient<ICodeCoverage, CodeCoverageService>();
 
 builder.Services.AddSingleton<IDashboardService, DashboardService>(service =>
-                             new DashboardService(owner, DeepSourceowner,
-                               service.GetRequiredService<IBranchService>(),
+                             new DashboardService(owner, 
+                                DeepSourceowner,
+                                service.GetRequiredService<IBranchService>(),
                                 service.GetRequiredService<IBuildService>(),
                                 service.GetRequiredService<IDeploymentService>(),
                                 service.GetRequiredService<ICommitService>(),

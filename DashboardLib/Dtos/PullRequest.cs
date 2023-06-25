@@ -13,27 +13,21 @@ namespace DashboardLib.Dtos
 
         [JsonProperty("head")]
 
-        public head head { get; set; }
-
-
-
+        public Head Head { get; set; }
     }
 
-    public class head
+    public class Head
     {
         [JsonProperty("ref")]
         public string BranchName { get; set; }
 
         [JsonProperty("repo")]
-        public repo repo { get; set; }
+        public Repo Repo { get; set; }
     }
 
-    public class repo
+    public class Repo
     {
         [JsonProperty("name")]
         public string BranchName { get; set; }
-
     }
-
-
 }
