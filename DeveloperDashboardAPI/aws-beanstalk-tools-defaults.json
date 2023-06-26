@@ -1,0 +1,21 @@
+
+{
+    "region" : "us-east-1",
+    "configuration" : "Debug",
+    "framework"     : "net7.0",
+    "self-contained" : true,
+    "application"    : "DeveloperDashboardService",
+    "environment"    : "DeveloperDashboardService-prod",
+    "app-path"       : "/",
+    "iis-website"    : "Default Web Site",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-012dde9f85f127dea\";\"aws:ec2:vpc,Subnets\"=\"subnet-004db0f3bc0b60672\"",
+    "solution-stack"       : "64bit Windows Server 2019 v2.11.4 running IIS 10.0",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "developerdashboardservice-prod",
+    "instance-type"        : "t2.micro",
+    "key-pair"             : "testkeypair",
+    "instance-profile"     : "testroleforelasticbeanstalk",
+    "service-role"         : "aws-elasticbeanstalk-service-role"
+}
