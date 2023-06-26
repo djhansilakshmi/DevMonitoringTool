@@ -4,13 +4,18 @@ using DeveloperDashboardAPI.DataServices.DeepSourceServices;
 using DeveloperDashboardAPI.DataServices.GitServices;
 using DeveloperDashboardAPI.Services.DataServices;
 
-var owner = "rganesanAltimetrik";
-var rameshToken = "";
-
 
 // Add services to the container.
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+
+var config = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json", optional: false)
+        .Build();
+
+
+var owner = config.GetSection("owner").Value;
+var gitToken = config.GetSection("gitToken").Value;
 
 var DeepSourceURL = "https://api.deepsource.io/graphql/";
 var DeepSourceToken = "dsp_c650299d7c381c8f3ae179cbc9c44da442cb";
@@ -34,7 +39,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IGitClient, GitClient>(service => new GitClient(rameshToken));
+builder.Services.AddTransient<IGitClient, GitClient>(service => new GitClient(gitToken));
 builder.Services.AddTransient<IDeepsourceClient, DeepsourceClient>(service => new DeepsourceClient(DeepSourceURL, DeepSourceToken));
 builder.Services.AddTransient<IBranchService, BranchService>();
 builder.Services.AddTransient<IBuildService, BuildService>();
