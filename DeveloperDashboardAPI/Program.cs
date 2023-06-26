@@ -5,7 +5,7 @@ using DeveloperDashboardAPI.DataServices.GitServices;
 using DeveloperDashboardAPI.Services.DataServices;
 
 var owner = "rganesanAltimetrik";
-var rameshToken = "";
+var rameshToken = "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";
 
 
 // Add services to the container.
@@ -59,7 +59,11 @@ builder.Services.AddSingleton<IDashboardService, DashboardService>(service =>
 //builder.Services.AddHttpClient<IDashboardService, DashboardService>
 //    (spds => spds.BaseAddress = new Uri(builder.Configuration["api_jsonplaceholder_base_url"]));
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
+
+app.MapHealthChecks("/health");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
