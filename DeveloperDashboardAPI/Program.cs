@@ -5,7 +5,7 @@ using DeveloperDashboardAPI.DataServices.GitServices;
 using DeveloperDashboardAPI.Services.DataServices;
 
 var owner = "rganesanAltimetrik";
-var rameshToken = "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";
+var rameshToken = "";
 
 
 // Add services to the container.
