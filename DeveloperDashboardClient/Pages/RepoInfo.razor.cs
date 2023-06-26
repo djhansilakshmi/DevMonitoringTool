@@ -19,58 +19,32 @@ namespace DeveloperDashboardClient.Pages
         private PieConfig _branchConfig;
         private PieConfig _prConfig;
         bool showValue = true;
-        double codeCoveragevalue;
         GaugeTickPosition tickPosition;
         IEnumerable<GaugeTickPosition> tickPositions;
 
         [Parameter]
         public Repositories repo { get; set; }
+
+        [Parameter]
+        public double codeCoveragevalue { get; set; }
+
+
+
         protected override async Task OnInitializedAsync()
         {
+            await Task.Delay(50);
+
             tickPositions = Enum.GetValues(typeof(GaugeTickPosition)).Cast<GaugeTickPosition>();
             tickPosition = GaugeTickPosition.Inside;
 
-            if (@repo.Branches[0].CodeCoverage.Data.Repository.Metrics[9].Items[0].Values.Edges.Count > 0)
-            {
-                codeCoveragevalue = @repo.Branches[0].CodeCoverage.Data.Repository.Metrics[9].Items[0].Values.Edges[0].Node.Value;
-            }
-            else
-            { codeCoveragevalue = 0; }
+            SetBranchDetails();
+            SetPullRequest();
 
 
-            #region "Branch Config"
-            _branchConfig = new PieConfig
-            {
-                Options = new PieOptions
-                {
-                    Responsive = true,
-                    Title = new OptionsTitle
-                    {
-                        Display = true,
-                        Text = "Branch Details"
-                    }
-                }
-            };
-
-            foreach (string color in new[] { "Active Branch", "InActive Branch" })
-            {
-                _branchConfig.Data.Labels.Add(color);
-            }
-          
-             
-            PieDataset<int> dataset = new PieDataset<int>(new[] { repo.Branches.Count(), repo.Branches.Count() })
-            {
-                BackgroundColor = new[]
-                {
-                    ColorUtil.ColorHexString(13, 71, 167),
-                    ColorUtil.ColorHexString(77, 190, 206)
-                }
-            };
-
-            _branchConfig.Data.Datasets.Add(dataset);
-            #endregion
-
-            #region "PR Config"
+            //await GetAllProjects();
+        }
+        private void SetPullRequest()
+        {
             _prConfig = new PieConfig
             {
                 Options = new PieOptions
@@ -113,10 +87,48 @@ namespace DeveloperDashboardClient.Pages
             };
 
             _prConfig.Data.Datasets.Add(data);
-            #endregion
+        }
+        private void SetBranchDetails()
+        {
+            _branchConfig = new PieConfig
+            {
+                Options = new PieOptions
+                {
+                    Responsive = true,
+                    Title = new OptionsTitle
+                    {
+                        Display = true,
+                        Text = "Branch Details"
+                    }
+                }
+            };
+
+            foreach (string color in new[] { "Active Branch", "InActive Branch" })
+            {
+                _branchConfig.Data.Labels.Add(color);
+            }
 
 
-            //await GetAllProjects();
+            PieDataset<int> dataset = new PieDataset<int>(new[] { repo.Branches.Count(), repo.Branches.Count() })
+            {
+                BackgroundColor = new[]
+                {
+                    ColorUtil.ColorHexString(13, 71, 167),
+                    ColorUtil.ColorHexString(77, 190, 206)
+                }
+            };
+
+            _branchConfig.Data.Datasets.Add(dataset);
+        }
+
+        private void SetCodeCoverage()
+        {
+            if (@repo.Branches[0].CodeCoverage.Data.Repository.Metrics[9].Items[0].Values.Edges.Count > 0)
+            {
+                codeCoveragevalue = @repo.Branches[0].CodeCoverage.Data.Repository.Metrics[9].Items[0].Values.Edges[0].Node.Value;
+            }
+            else
+            { codeCoveragevalue = 0; }
         }
     }
 }

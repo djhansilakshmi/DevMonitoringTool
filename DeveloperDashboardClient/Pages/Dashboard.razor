@@ -117,9 +117,9 @@
     </tbody>
 </table>
 
-<Modal @ref="modal" Title="Repository Information" UseStaticBackdrop="true" Size="ModalSize.ExtraLarge">
+<Modal @ref="modal" Title="Repository Information" UseStaticBackdrop="true" Size="ModalSize.ExtraLarge" IsScrollable="true">
     <BodyTemplate>
-        <RepoInfo repo=@repository />
+        <RepoInfo />
     </BodyTemplate>
 </Modal>
 
@@ -145,7 +145,20 @@
     private async Task OnShowModalClick(Repositories repo)
     {
         repository = repo;
-        await modal?.ShowAsync();
+        double codeCoveragevalue;
+
+        if (@repo.Branches[0].CodeCoverage.Data.Repository.Metrics[9].Items[0].Values.Edges.Count > 0)
+        {
+            codeCoveragevalue = @repo.Branches[0].CodeCoverage.Data.Repository.Metrics[9].Items[0].Values.Edges[0].Node.Value;
+        }
+        else
+        { codeCoveragevalue = 0; }
+
+        var parameter = new Dictionary<string, object>();
+        parameter.Add("repo", repository);
+        parameter.Add("codeCoveragevalue", codeCoveragevalue);
+
+        await modal?.ShowAsync<RepoInfo>(title: "Repository Information", parameters: parameter);
     }
 
     private async Task OnHideModalClick()
