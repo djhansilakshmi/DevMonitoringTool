@@ -8,7 +8,7 @@
             @if (dashboardVMs == null)
             {
                 <div>
-                    <i class="fa fa-refresh fa-spin" style="font-size:36px;color:deepskyblue"></i>
+                    <i class="fa fa-refresh fa-spin" style="font-size:19px;color:#284387"></i><span class="fw-normal fs-6 px-2">Fetching grid data...</span>
                 </div>
             }
         </div>
@@ -117,7 +117,7 @@
     </tbody>
 </table>
 
-<Modal @ref="modal" Title="Repository Information" UseStaticBackdrop="true" Size="ModalSize.ExtraLarge" IsScrollable="true">
+<Modal @ref="modal" Title="Repository Information" UseStaticBackdrop="true" Size="ModalSize.Large" IsScrollable="true">
     <BodyTemplate>
         <RepoInfo />
     </BodyTemplate>
