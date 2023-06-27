@@ -7,7 +7,7 @@
 
 @if (repo != null)
 {
-    <section class="my-4">
+    <section>
         <section class="d-flex flex-row align-items-center justify-content-between px-5">
             <label for="StackName" class="form-label">Stack Name: <span class="px-2 fw-bolder fs-6"></span> @repo.Name </label>
             <label for="Branch" class="form-label">Branch: <span class="px-2 fw-bolder fs-6"> @repo.Branches[0].Name</span> </label>
@@ -75,85 +75,5 @@
 
 
 @code {
-    //private PieConfig _branchConfig;
-    //private PieConfig _prConfig;
-    //bool showValue = true;
-    //double value = 100;
-    //GaugeTickPosition tickPosition;
-    //IEnumerable<GaugeTickPosition> tickPositions;
-
-    //protected override void OnInitialized()
-    //{
-
-    //    tickPositions = Enum.GetValues(typeof(GaugeTickPosition)).Cast<GaugeTickPosition>();
-    //    tickPosition = GaugeTickPosition.Inside;
-
-    //    #region "Branch Config"
-    //    _branchConfig = new PieConfig
-    //        {
-    //            Options = new PieOptions
-    //            {
-    //                Responsive = true,
-    //                Title = new OptionsTitle
-    //                {
-    //                    Display = true,
-    //                    Text = "Branch Details"
-    //                }
-    //            }
-    //        };
-
-    //    foreach (string color in new[] { "Active Branch", "InActive Branch" })
-    //    {
-    //        _branchConfig.Data.Labels.Add(color);
-    //    }
-
-    //    PieDataset<int> dataset = new PieDataset<int>(new[] { 6, 5 })
-    //        {
-    //            BackgroundColor = new[]
-    //                                                                        {
-    //        ColorUtil.ColorHexString(13, 71, 167), // Slice 1 aka "Red"
-    //        ColorUtil.ColorHexString(77, 190, 206), // Slice 2 aka "Yellow"
-    //        //ColorUtil.ColorHexString(75, 192, 192), // Slice 3 aka "Green"
-    //        //ColorUtil.ColorHexString(54, 162, 235), // Slice 4 aka "Blue"
-    //    }
-    //        };
-
-    //    _branchConfig.Data.Datasets.Add(dataset);
-        //    #endregion
-
-    //    #region "PR Config"
-    //    _prConfig = new PieConfig
-    //        {
-    //            Options = new PieOptions
-    //            {
-    //                Responsive = true,
-    //                Title = new OptionsTitle
-    //                {
-    //                    Display = true,
-    //                    Text = "Pull Request Details"
-    //                }
-    //            }
-    //        };
-
-    //    foreach (string color in new[] { "Open PR's", "Closed PR's" })
-    //    {
-    //        _prConfig.Data.Labels.Add(color);
-    //    }
-
-    //    PieDataset<int> data = new PieDataset<int>(new[] { 3, 7 })
-    //        {
-    //            BackgroundColor = new[]
-    //                                                                            {
-    //        ColorUtil.ColorHexString(249, 176, 65), // Slice 1 aka "orange"
-    //        ColorUtil.ColorHexString(91, 198, 35), // Slice 2 aka "green"
-    //        //ColorUtil.ColorHexString(75, 192, 192), // Slice 3 aka "Green"
-    //        //ColorUtil.ColorHexString(54, 162, 235), // Slice 4 aka "Blue"
-    //    }
-    //        };
-
-    //    _prConfig.Data.Datasets.Add(data);
-        //    #endregion
-
-
-    //}
+    
 }
