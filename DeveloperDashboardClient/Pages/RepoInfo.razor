@@ -32,13 +32,13 @@
             <div class="col-sm-12 col-md-6 col-lg-6 border rounded m-3 shadow chart-container-size p-4">
                 <h6 class="h6 fw-bolder fs-6">Code Coverage (Line Coverage)</h6>
                 <RadzenRadialGauge Style="width: 100%; height: 240px" class="top-0">
-                    <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step="20" Min="0" Max="160" TickPosition=@tickPosition>
+                    <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step="20" Min="0" Max="100" TickPosition=@tickPosition>
                         <RadzenRadialGaugeScalePointer Value=@codeCoveragevalue Length="0.6" ShowValue=@showValue>
                             <Template Context="pointer">
                             </Template>
                         </RadzenRadialGaugeScalePointer>
-                        <RadzenRadialGaugeScaleRange From="0" To="80" Fill="red" />
-                        <RadzenRadialGaugeScaleRange From="81" To="160" Fill="green" />
+                        <RadzenRadialGaugeScaleRange From="0" To="79" Fill="red" />
+                        <RadzenRadialGaugeScaleRange From="80" To="100" Fill="green" />
                         @*<RadzenRadialGaugeScaleRange From="140" To="260" Fill="red" />*@
                     </RadzenRadialGaugeScale>
                 </RadzenRadialGauge>
