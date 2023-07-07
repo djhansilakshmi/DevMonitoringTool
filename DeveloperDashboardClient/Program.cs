@@ -20,7 +20,7 @@ builder.Services.AddBlazorBootstrap();
 //    (spds => spds.BaseAddress = new Uri(builder.Configuration["api_jsonplaceholder_base_url"]));
 
 builder.Services.AddHttpClient<IDashboardServiceUI, DashboardServiceUI>
-    (spds => spds.BaseAddress = new Uri(builder.Configuration["dashboardBaseUrl"]));
+    (spds => spds.BaseAddress = new Uri(builder.Configuration["dashboardServiceUrl"]));
 
 await builder.Build().RunAsync().ConfigureAwait(false);
 

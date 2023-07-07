@@ -18,20 +18,13 @@ var owner = config.GetSection("owner").Value;
 var gitToken = config.GetSection("gitToken").Value;
 
 var DeepSourceURL = "https://api.deepsource.io/graphql/";
-var DeepSourceToken = "dsp_c650299d7c381c8f3ae179cbc9c44da442cb";
+var DeepSourceToken = "dsp_c6562a02a7b7c3c6513e90742817e066aec4";
 var DeepSourceowner = "rganesanAltimetrik";
 
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("https://localhost:7262/Albums/all")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod()
-                          .AllowAnyOrigin(); // add the allowed origins  
-                      });
+    options.AddPolicy(MyAllowSpecificOrigins, options => options.AllowAnyOrigin());
 });
 
 builder.Services.AddControllers();
